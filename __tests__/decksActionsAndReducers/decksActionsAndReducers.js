@@ -17,7 +17,7 @@ import mock from 'mock/deck/deckMock'
 
 // InitialState
 
-import deckInitialState from '05-reducers/initialStates/deck'
+import deckInitialState from 'src/05-reducers/initialStates/deck'
 
 describe('Deck action and reducers', () => {
     test(constants.ADD_DECK, () => {
