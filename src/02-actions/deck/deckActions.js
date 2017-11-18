@@ -12,12 +12,12 @@ export const addDeckAction = deck => ({
     deck
 })
 
-export const editDeck = deck => ({
+export const editDeckAction = deck => ({
     type: types.EDIT_DECK,
     deck
 })
 
-export const removeDeck = deck => ({
+export const removeDeckAction = deck => ({
     type: types.REMOVE_DECK,
     deck
 })
