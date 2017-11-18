@@ -76,7 +76,7 @@ describe('Deck action and reducers', () => {
         }, {}))
     })
 
-    test(constants.REMOVE_DECK, () => {
+    test(constants.EDIT_DECK, () => {
         // Params
         const deckInitial = deckMock.deckMock
         const deckId = Object.keys(deckInitial)[0]
