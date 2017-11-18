@@ -1,15 +1,17 @@
 import * as types from 'constants/deck/contants'
 
 export default function deckReducer (state = {}, action) {
+    let deck, deckId
     switch (action.type) {
         case types.ADD_DECK_LIST:
             const decksObject = action.decks.reduce((prevState, deck) => {
+                const deckId = Object.keys(deck)[0]
                 return {
                     ...prevState,
-                    [deck.id]: {
-                        questions: deck.questions,
-                        deleted: deck.deleted,
-                        title: deck.title
+                    [deckId]: {
+                        questions: deck[deckId].questions,
+                        deleted: deck[deckId].deleted,
+                        title: deck[deckId].title
                     }
                 }
             }, {})
@@ -18,7 +20,7 @@ export default function deckReducer (state = {}, action) {
                 ...decksObject
             }
         case types.ADD_DECK:
-            const deck = action.deck
+            deck = action.deck
             return {
                 ...state,
                 [deck.id]: {
@@ -28,16 +30,17 @@ export default function deckReducer (state = {}, action) {
                 }
             }
         case types.EDIT_DECK:
-            const deck = action.deck
+            deck = action.deck
+            deckId = Object.keys(deck)[0]
             return {
                 ...state,
-                [deck.id]: {
-                    questions: deck.questions,
-                    title: deck.title
+                [deckId]: {
+                    ...state[deckId],
+                    title: deck[deckId].title
                 }
             }
         case types.REMOVE_DECK:
-            const deck = action.deck
+            deck = action.deck
             return {
                 ...state,
                 [deck.id]: {
