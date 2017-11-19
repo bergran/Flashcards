@@ -13,17 +13,16 @@ import * as constants from 'constants/deck/contants'
 
 // MockData
 
-import mock from 'mock/deck/deckMock'
+import deckMock from 'mock/deck/deckMock'
 
 // InitialState
 
 import deckInitialState from 'src/05-reducers/initialStates/deck'
-import deckMock from "mock/deck/deckMock";
 
 describe('Deck action and reducers', () => {
     test(constants.ADD_DECK, () => {
         // Params
-        const deck = mock.deckMock
+        const deck = deckMock.deckMock
         const deckId = Object.keys(deck)[0]
         // Action
         const expectedAction = {
@@ -31,7 +30,6 @@ describe('Deck action and reducers', () => {
             deck: {
                 [deckId]: {
                     title: deck[deckId].title,
-                    cards: deck[deckId].cards,
                     deleted: deck[deckId].deleted
                 }
             }
@@ -40,7 +38,6 @@ describe('Deck action and reducers', () => {
         const action = actions.addDeckAction({
             [deckId]: {
                 title: deck[deckId].title,
-                cards: deck[deckId].cards,
                 deleted: deck[deckId].deleted
             }
         })
@@ -106,7 +103,7 @@ describe('Deck action and reducers', () => {
 
     test(constants.REMOVE_DECK, () => {
         // Params
-        const deck = mock.deckMock
+        const deck = deckMock.deckMock
         const deckId = Object.keys(deck)[0]
         // Action
         const expectedAction = {

@@ -1,7 +1,7 @@
 import * as types from 'constants/deck/contants'
 
 export default function deckReducer (state = {}, action) {
-    let deck, deckId, card, cards
+    let deck, deckId
     switch (action.type) {
         case types.ADD_DECK_LIST:
             const decksObject = action.decks.reduce((prevState, deck) => {
@@ -9,7 +9,6 @@ export default function deckReducer (state = {}, action) {
                 return {
                     ...prevState,
                     [deckId]: {
-                        cards: deck[deckId].cards,
                         deleted: deck[deckId].deleted,
                         title: deck[deckId].title
                     }
@@ -25,7 +24,6 @@ export default function deckReducer (state = {}, action) {
             return {
                 ...state,
                 [deckId]: {
-                    cards: deck[deckId].cards,
                     deleted: deck[deckId].deleted,
                     title: deck[deckId].title
                 }
