@@ -29,18 +29,20 @@ describe('Deck action and reducers', () => {
         const expectedAction = {
             type: constants.ADD_DECK,
             deck: {
-                id: deckId,
-                title: deck[deckId].title,
-                questions: deck[deckId].questions,
-                deleted: deck[deckId].deleted
+                [deckId]: {
+                    title: deck[deckId].title,
+                    cards: deck[deckId].cards,
+                    deleted: deck[deckId].deleted
+                }
             }
         }
 
         const action = actions.addDeckAction({
-            id: deckId,
-            title: deck[deckId].title,
-            questions: deck[deckId].questions,
-            deleted: deck[deckId].deleted
+            [deckId]: {
+                title: deck[deckId].title,
+                cards: deck[deckId].cards,
+                deleted: deck[deckId].deleted
+            }
         })
         expect(action).toEqual(expectedAction)
 
@@ -99,6 +101,27 @@ describe('Deck action and reducers', () => {
         // Reducer
         expect(deckReducer(deckInitial, action)).toEqual({
             ...deckEdited
+        })
+    })
+
+    test(constants.REMOVE_DECK, () => {
+        // Params
+        const deck = mock.deckMock
+        const deckId = Object.keys(deck)[0]
+        // Action
+        const expectedAction = {
+            type: constants.REMOVE_DECK,
+            deck
+        }
+        const action = actions.removeDeckAction(deck)
+        expect(action).toEqual(expectedAction)
+        // Reducer
+        expect(deckReducer(deck, action)).toEqual({
+            ...deck,
+            [deckId]: {
+                ...deck[deckId],
+                deleted: true
+            }
         })
     })
 })

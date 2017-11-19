@@ -2,7 +2,7 @@ export default {
     deckMock: {
         '1234567890A': {
             title: 'test-1',
-            questions: [
+            cards: [
                 {question: 'React-Native is from...?', answer: 'facebook'},
                 {question: 'what the best map locator bussiness?', answer: 'google'},
             ],
@@ -13,7 +13,7 @@ export default {
         {
             '1234567890A': {
                 title: 'test-1',
-                questions: [
+                cards: [
                     {question: 'React-Native is from...?', answer: 'facebook'},
                     {question: 'what the best map locator bussiness?', answer: 'google'},
                 ],
@@ -23,7 +23,7 @@ export default {
         {
             '1234567890A': {
                 title: 'test-1',
-                questions: [
+                cards: [
                     {question: 'React-Native is from...?', answer: 'facebook'},
                     {question: 'what the best map locator bussiness?', answer: 'google'},
                 ],
