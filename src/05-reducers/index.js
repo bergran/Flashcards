@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import userReducer from './user'
+import quizReducer from './quiz'
 import deckReducer from './deck'
 import cardReducer from './cards'
 
 export default combineReducers({
-    user: userReducer,
+    quiz: quizReducer,
     deck: deckReducer,
     card: cardReducer
 })
