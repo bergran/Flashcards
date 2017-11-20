@@ -1,15 +1,17 @@
 import * as types from 'constants/quiz/constants'
 
-export const createQuizAction = (quizId, deckId) => ({
+export const createQuizAction = (quizId, deckId, date) => ({
     type: types.CREATE_QUIZ,
     quizId,
-    deckId
+    deckId,
+    date
 })
 
-export const addAnswerQuizAction = (quizId, answer) => ({
+export const addAnswerQuizAction = (quizId, answer, isCorrect) => ({
     type: types.ADD_ANSWER_QUIZ,
     quizId,
-    answer
+    answer,
+    isCorrect
 })
 
 export const addAnnotationQuizAction = (quizId, annotation) => ({
