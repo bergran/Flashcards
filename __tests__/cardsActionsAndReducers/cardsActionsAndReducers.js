@@ -72,6 +72,12 @@ describe('Card actions and reducers', () => {
         expect(action).toEqual(expectedAction)
 
         // Reducers
-        // expect(cardReducer(cardOriginal, action)).toEqual()
+        expect(cardReducer(cardOriginal, action)).toEqual({
+            ...cardOriginal,
+            [cardId]: {
+                ...cardOriginal[cardId],
+                deleted: true
+            }
+        })
     })
 })

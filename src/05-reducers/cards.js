@@ -33,6 +33,15 @@ export default function cardReducer (state, action) {
                     isCorrect: card[cardId].isCorrect,
                 }
             }
+        case types.REMOVE_CARD:
+            cardId = action.cardId
+            return {
+                ...state,
+                [cardId]: {
+                    ...state[cardId],
+                    deleted: true
+                }
+            }
 
         default:
             return state
