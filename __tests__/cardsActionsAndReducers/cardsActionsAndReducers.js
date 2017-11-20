@@ -37,4 +37,41 @@ describe('Card actions and reducers', () => {
             }
         })
     })
+
+    test(types.EDIT_CARD, () => {
+        // Params
+        const cardOriginal = mockData.cardMock
+        const card = mockData.cardEditMock
+
+        // Actions
+        const expectedAction = {
+            type: types.EDIT_CARD,
+            card
+        }
+        const action = actions.editCardAction(card)
+        expect(action).toEqual(expectedAction)
+
+        // Reducers
+        expect(cardReducer(cardOriginal, action)).toEqual({
+            ...card
+        })
+    })
+
+    test(types.REMOVE_CARD, () => {
+        // Params
+        const cardOriginal = mockData.cardMock
+        const cardDelete = mockData.cardRemMock
+        const cardId = Object.keys(cardOriginal)[0]
+        // Action
+        const expectedAction = {
+            type: types.REMOVE_CARD,
+            cardId
+        }
+
+        const action = actions.removeCardAction(cardId)
+        expect(action).toEqual(expectedAction)
+
+        // Reducers
+        // expect(cardReducer(cardOriginal, action)).toEqual()
+    })
 })

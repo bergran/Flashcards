@@ -1,4 +1,5 @@
 import * as types from 'constants/cards/constants'
+import card from "./initialStates/card";
 
 export default function cardReducer (state, action) {
     let deckId, cardId, card, cards
@@ -20,6 +21,19 @@ export default function cardReducer (state, action) {
                     ...card[cardId]
                 }
             }
+        case types.EDIT_CARD:
+            card = action.card
+            cardId = Object.keys(card)
+            return {
+                ...state,
+                [cardId]: {
+                    ...state[cardId],
+                    question: card[cardId].question,
+                    answer: card[cardId].answer,
+                    isCorrect: card[cardId].isCorrect,
+                }
+            }
+
         default:
             return state
     }

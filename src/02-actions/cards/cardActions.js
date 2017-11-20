@@ -6,14 +6,12 @@ export const addCartAction = (deckId, card) => ({
     deckId
 })
 
-export const editCardAction = (deckId, card) => ({
+export const editCardAction = card => ({
     type: types.EDIT_CARD,
     card,
-    deckId
 })
 
-export const removeCardAction = (deckId, cardId) => ({
+export const removeCardAction = cardId => ({
     type: types.REMOVE_CARD,
     cardId,
-    deckId
 })
