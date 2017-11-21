@@ -9,7 +9,7 @@ import deckReducer from '05-reducers/deck'
 
 // Constants
 
-import * as constants from 'constants/deck/contants'
+import * as constants from 'constants/deck/constants'
 
 // MockData
 

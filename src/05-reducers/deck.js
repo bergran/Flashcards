@@ -1,4 +1,4 @@
-import * as types from 'constants/deck/contants'
+import * as types from 'constants/deck/constants'
 
 export default function deckReducer (state = {}, action) {
     let deck, deckId

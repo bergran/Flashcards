@@ -1,4 +1,4 @@
-import * as types from 'constants/deck/contants'
+import * as types from 'constants/deck/constants'
 
 // ----- Actions -----
 
