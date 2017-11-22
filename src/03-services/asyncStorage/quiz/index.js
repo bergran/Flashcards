@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import { QUIZ } from 'constants/quiz/constants'
+import { QUIZ } from '../../../../constants/quiz/constants'
 
 export const getQuiz = () => AsyncStorage.getItem(QUIZ)
 

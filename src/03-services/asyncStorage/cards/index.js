@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import { CARD } from 'constants/cards/constants'
+import { CARD } from '../../../../constants/cards/constants'
 
 export const getCards = () => AsyncStorage.getItem(CARD)
 

@@ -1,18 +1,39 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet,  } from 'react-native'
 import { connect } from 'react-redux'
-import { addDeckAction } from './02-actions/deck/deckActions'
+import { TabNavigator, StackNavigator } from 'react-navigation'
+import { addDeckAction } from '../../02-actions/deck/deckActions'
+import ShowDecksView from '../Decks/view'
+
+const Tabs = TabNavigator({
+    Decks: {
+        screen: ShowDecksView,
+        navigationOption: {
+            tabBarLabel: 'All decks'
+        }
+    },
+    Decks2: {
+        screen: ShowDecksView,
+        navigationOption: {
+            tabBarLabel: 'No decks'
+        }
+    }
+})
+
+const MainNavigator = StackNavigator({
+    Home: {
+        screen: Tabs
+    }
+})
+
+// const FlashCardStatusBar =
 
 class Navigation extends Component {
 
     render () {
         console.log('props', this.props)
         return (
-            <View style={styles.container}>
-                <Text>Open up App.js to start working on your app!</Text>
-                <Text>Changes you make will automatically reload.</Text>
-                <Text>Shake your phone to open the developer menu.</Text>
-            </View>
+            <MainNavigator />
         )
     }
 }
