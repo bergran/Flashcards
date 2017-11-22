@@ -1,7 +1,7 @@
-import * as types from 'constants/cards/constants'
+import * as types from '../../constants/cards/constants'
 import card from "./initialStates/card";
 
-export default function cardReducer (state, action) {
+export default function cardReducer (state = card, action) {
     let deckId, cardId, card, cards
     switch (action.type) {
         case types.ADD_CARD:
@@ -18,7 +18,11 @@ export default function cardReducer (state, action) {
             return {
                 ...cards,
                 [cardId]: {
-                    ...card[cardId]
+                    question: card[cardId].question,
+                    answer: card[cardId].answer,
+                    isCorrect: card[cardId].isCorrect,
+                    idDeck: card[cardId].idDeck,
+                    deleted: false
                 }
             }
         case types.EDIT_CARD:

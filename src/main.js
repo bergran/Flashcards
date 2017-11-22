@@ -1,16 +1,15 @@
 import app from './app'
 
-export default async function getInit () {
+export default function getInit () {
     // Request
 
     // Load redux states
-
     const initialStates = {
-        decks: {},
-        cards: {},
+        deck: {},
+        card: {},
         quiz: {}
     }
 
     // Call app
-    app(initialStates)
+    return app(initialStates)
 }

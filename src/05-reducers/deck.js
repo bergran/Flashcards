@@ -1,4 +1,4 @@
-import * as types from 'constants/deck/constants'
+import * as types from '../../constants/deck/constants'
 
 export default function deckReducer (state = {}, action) {
     let deck, deckId
@@ -24,7 +24,7 @@ export default function deckReducer (state = {}, action) {
             return {
                 ...state,
                 [deckId]: {
-                    deleted: deck[deckId].deleted,
+                    deleted: false,
                     title: deck[deckId].title
                 }
             }
