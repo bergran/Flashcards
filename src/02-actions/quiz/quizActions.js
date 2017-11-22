@@ -1,4 +1,11 @@
-import * as types from 'constants/quiz/constants'
+import * as types from '../../../constants/quiz/constants'
+
+// Actions
+
+export const addQuizzesAction = quizzes => ({
+    type: types.ADD_QUIZZES_LIST,
+    quizzes
+})
 
 export const createQuizAction = (quizId, deckId, date) => ({
     type: types.CREATE_QUIZ,

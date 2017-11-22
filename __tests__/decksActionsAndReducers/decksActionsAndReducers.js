@@ -1,23 +1,23 @@
 /* globals expect, describe, test */
 // Actions
 
-import * as actions from '02-actions/deck/deckActions'
+import * as actions from '../../src/02-actions/deck/deckActions'
 
 // Reducer
 
-import deckReducer from '05-reducers/deck'
+import deckReducer from '../../src/05-reducers/deck'
 
 // Constants
 
-import * as constants from 'constants/deck/constants'
+import * as constants from '../../constants/deck/constants'
 
 // MockData
 
-import deckMock from 'mock/deck/deckMock'
+import deckMock from '../../mock/deck/deckMock'
 
 // InitialState
 
-import deckInitialState from 'src/05-reducers/initialStates/deck'
+import deckInitialState from '../../src/05-reducers/initialStates/deck'
 
 describe('Deck action and reducers', () => {
     test(constants.ADD_DECK, () => {

@@ -1,19 +1,19 @@
 // Libraries
 
 // Actions
-import * as actions from '02-actions/cards/cardActions'
+import * as actions from '../../src/02-actions/cards/cardActions'
 
 // Constants
-import * as types from 'constants/cards/constants'
+import * as types from '../../constants/cards/constants'
 
 // Reducer
-import cardReducer from '05-reducers/cards'
+import cardReducer from '../../src/05-reducers/cards'
 
 // MockData
-import mockData from 'mock/card/cardMock'
+import mockData from '../../mock/card/cardMock'
 
 // InitialState
-import cardInitialState from '05-reducers/initialStates/card'
+import cardInitialState from '../../src/05-reducers/initialStates/card'
 
 describe('Card actions and reducers', () => {
     test(types.ADD_CARD, () => {
@@ -26,7 +26,7 @@ describe('Card actions and reducers', () => {
             deckId: '123456789k',
             card
         }
-        const action = actions.addCartAction('123456789k', card)
+        const action = actions.addCardAction('123456789k', card)
         expect(action).toEqual(expectedAction)
 
         // Reducers

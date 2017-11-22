@@ -1,19 +1,19 @@
 // Libraries
 
 // Actions
-import * as actions from '02-actions/quiz/quizActions'
+import * as actions from '../../src/02-actions/quiz/quizActions'
 
 // Reducer
-import quizReducer from '05-reducers/quiz'
+import quizReducer from '../../src/05-reducers/quiz'
 
 // Constants
-import * as types from 'constants/quiz/constants'
+import * as types from '../../constants/quiz/constants'
 
 // MockData
-import mockData from 'mock/quiz/quizMock'
+import mockData from '../../mock/quiz/quizMock'
 
 // InitialState
-import quizInitialState from '05-reducers/initialStates/quiz'
+import quizInitialState from '../../src/05-reducers/initialStates/quiz'
 
 describe('Quiz Actions and reducers', () => {
     test(types.CREATE_QUIZ, () => {

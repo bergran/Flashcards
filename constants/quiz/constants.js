@@ -1,5 +1,6 @@
 // Actions
 
+export const ADD_QUIZZES_LIST = 'ADD_QUIZZES_LIST'
 export const CREATE_QUIZ = 'CREATE_QUIZ'
 export const ADD_ANSWER_QUIZ = 'ADD_ANSWER_QUIZ'
 export const ADD_ANNOTATION_QUIZ = 'ADD_ANNOTATION_QUIZ'

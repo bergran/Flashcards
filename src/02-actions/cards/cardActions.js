@@ -1,4 +1,9 @@
-import * as types from 'constants/cards/constants'
+import * as types from '../../../constants/cards/constants'
+
+export const addCardsAction = cards => ({
+    type: types.ADD_CARDS_LIST,
+    cards
+})
 
 export const addCardAction = (deckId, card) => ({
     type: types.ADD_CARD,
