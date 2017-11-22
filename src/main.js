@@ -1,15 +1,18 @@
 import app from './app'
+import getInitialData from "./03-services/getData";
 
-export default function getInit () {
-    // Request
+export default getInitialData(
+    function getInit (data) {
+        // Request
+        // Load redux states
+        console.log('eqrer')
+        const initialStates = {
+            deck: {},
+            card: {},
+            quiz: {}
+        }
 
-    // Load redux states
-    const initialStates = {
-        deck: {},
-        card: {},
-        quiz: {}
+        // Call app
+        return app(initialStates)
     }
-
-    // Call app
-    return app(initialStates)
-}
+)

@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import { DECK } from 'constants/deck/constants'
+import { DECK } from '../../../../constants/deck/constants'
 
 export const getDecks = () => AsyncStorage.getItem(DECK)
 
