@@ -1,4 +1,4 @@
-import * as types from 'constants/quiz/constants'
+import * as types from '../../constants/quiz/constants'
 
 export default function quizReducer (state = {}, action) {
     let deckId, quizId, quiz
