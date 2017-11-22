@@ -16,6 +16,26 @@ import mockData from '../../mock/card/cardMock'
 import cardInitialState from '../../src/05-reducers/initialStates/card'
 
 describe('Card actions and reducers', () => {
+    test(types.ADD_CARDS_LIST, () => {
+        // Params
+        const cards = mockData.cardsMock
+
+        // Actions
+        const expectedAction = {
+            type: types.ADD_CARDS_LIST,
+            cards
+        }
+
+        const action = actions.addCardsAction(cards)
+        expect(action).toEqual(expectedAction)
+
+        // Reducers
+        expect(cardReducer(cardInitialState, action)).toEqual({
+            ...cardInitialState,
+            ...cards
+        })
+    })
+
     test(types.ADD_CARD, () => {
         // Params
         const card = mockData.cardMock

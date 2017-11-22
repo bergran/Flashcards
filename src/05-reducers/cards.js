@@ -4,6 +4,23 @@ import card from "./initialStates/card";
 export default function cardReducer (state = card, action) {
     let deckId, cardId, card, cards
     switch (action.type) {
+        case types.ADD_CARDS_LIST:
+            cards = Object.keys(action.cards).reduce((state, cardId) => {
+                return {
+                    ...state,
+                    [cardId]: {
+                        question: action.cards[cardId].question,
+                        answer: action.cards[cardId].answer,
+                        isCorrect: action.cards[cardId].isCorrect,
+                        idDeck: action.cards[cardId].idDeck,
+                        deleted: action.cards[cardId].deleted
+                    }
+                }
+            }, {})
+            return {
+                ...state,
+                ...cards
+            }
         case types.ADD_CARD:
             deckId = action.deckId
             card = action.card

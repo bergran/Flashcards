@@ -16,6 +16,39 @@ import mockData from '../../mock/quiz/quizMock'
 import quizInitialState from '../../src/05-reducers/initialStates/quiz'
 
 describe('Quiz Actions and reducers', () => {
+    test(types.ADD_QUIZZES_LIST, () => {
+        // Params
+        const quizzes = mockData.quizzes
+
+        // Actions
+        const expectedAction = {
+            type: types.ADD_QUIZZES_LIST,
+            quizzes
+        }
+        const action = actions.addQuizzesAction(quizzes)
+        expect(action).toEqual(expectedAction)
+
+        // Reducers
+        expect(quizReducer(quizInitialState, action)).toEqual(
+            Object.keys(quizzes).reduce((state, quizId) => {
+                return {
+                    ...state,
+                    [quizId]: {
+                        deckId: quizzes[quizId].deckId,
+                        answers: quizzes[quizId].answers,
+                        fails: quizzes[quizId].fails,
+                        success: quizzes[quizId].success,
+                        date: quizzes[quizId].date,
+                        isCancelled: quizzes[quizId].isCancelled,
+                        isFinished: quizzes[quizId].isFinished,
+                        isContinued: quizzes[quizId].isContinued,
+                        annotation: quizzes[quizId].annotation
+                    }
+                }
+            }, {})
+        )
+    })
+
     test(types.CREATE_QUIZ, () => {
         // Params
         const quiz = mockData.quizCreate

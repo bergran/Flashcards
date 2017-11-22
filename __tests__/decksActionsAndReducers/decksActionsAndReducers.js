@@ -66,11 +66,10 @@ describe('Deck action and reducers', () => {
 
         // Reducers
         expect(deckReducer(deckInitialState, action)).toEqual(
-            deckList.reduce((prevState, deck) => {
-                const deckId = Object.keys(deck)[0]
+            Object.keys(deckList).reduce((prevState, deckId) => {
                 return {
                     ...prevState,
-                    [deckId]: deck[deckId]
+                    [deckId]: deckList[deckId]
                 }
         }, {}))
     })
