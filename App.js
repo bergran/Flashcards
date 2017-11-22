@@ -3,28 +3,37 @@ import { ActivityIndicator ,StyleSheet, Text, View } from 'react-native'
 import { Provider } from 'react-redux'
 import reducers from './src/05-reducers/index'
 import createStoreCustom from './src/06-store/store'
-import Navigation from './src/navigation'
+import Navigation from './src/01-containers/App/navigation'
+import { getDecks } from "./src/03-services/asyncStorage/decks/index";
+import { getCards } from "./src/03-services/asyncStorage/cards/index";
+import { getQuiz } from "./src/03-services/asyncStorage/quiz/index";
 
 export default class App extends Component {
     state = {
-        isLoading: true
-    }
-
-    constructor (props) {
-        super(props)
-
+        isLoading: true,
+        store: null
     }
 
     componentDidMount () {
-        this.setState({
-            isLoading: false
+        Promise.all([
+            getDecks(),
+            getCards(),
+            getQuiz()
+        ]).then(catalogs => {
+            const store = createStoreCustom(reducers, {
+                    deck: catalogs[0] || {},
+                    card: catalogs[1] || {},
+                    quiz: catalogs[2] || {}
+                })
+            this.setState({
+                isLoading: false,
+                store: store
+            })
         })
-        console.log('montado!')
     }
 
     render () {
         const { isLoading } = this.state
-
         if (isLoading) {
             return (
                 <View style={styles.loading}>
@@ -37,11 +46,7 @@ export default class App extends Component {
                 </View>
             )
         } else {
-            const store = createStoreCustom(reducers, {
-                quiz: {},
-                card: {},
-                deck: {}
-            })
+            const { store } = this.state
 
             return (
                 <Provider store={store}>
