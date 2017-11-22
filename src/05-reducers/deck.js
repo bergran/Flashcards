@@ -1,17 +1,15 @@
-import * as types from 'constants/deck/contants'
+import * as types from '../../constants/deck/constants'
 
 export default function deckReducer (state = {}, action) {
-    let deck, deckId, card, cards
+    let deck, deckId
     switch (action.type) {
         case types.ADD_DECK_LIST:
-            const decksObject = action.decks.reduce((prevState, deck) => {
-                const deckId = Object.keys(deck)[0]
+            const decksObject = Object.keys(action.decks).reduce((prevState, deckId) => {
                 return {
                     ...prevState,
                     [deckId]: {
-                        cards: deck[deckId].cards,
-                        deleted: deck[deckId].deleted,
-                        title: deck[deckId].title
+                        deleted: action.decks[deckId].deleted,
+                        title: action.decks[deckId].title
                     }
                 }
             }, {})
@@ -25,8 +23,7 @@ export default function deckReducer (state = {}, action) {
             return {
                 ...state,
                 [deckId]: {
-                    cards: deck[deckId].cards,
-                    deleted: deck[deckId].deleted,
+                    deleted: false,
                     title: deck[deckId].title
                 }
             }

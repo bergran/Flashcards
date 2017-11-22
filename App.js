@@ -1,23 +1,66 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react'
+import { ActivityIndicator ,StyleSheet, Text, View } from 'react-native'
+import { Provider } from 'react-redux'
+import reducers from './src/05-reducers/index'
+import createStoreCustom from './src/06-store/store'
+import Navigation from './src/01-containers/App/navigation'
+import { getDecks } from "./src/03-services/asyncStorage/decks/index";
+import { getCards } from "./src/03-services/asyncStorage/cards/index";
+import { getQuiz } from "./src/03-services/asyncStorage/quiz/index";
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
+export default class App extends Component {
+    state = {
+        isLoading: true,
+        store: null
+    }
+
+    componentDidMount () {
+        Promise.all([
+            getDecks(),
+            getCards(),
+            getQuiz()
+        ]).then(catalogs => {
+            const store = createStoreCustom(reducers, {
+                    deck: catalogs[0] || {},
+                    card: catalogs[1] || {},
+                    quiz: catalogs[2] || {}
+                })
+            this.setState({
+                isLoading: false,
+                store: store
+            })
+        })
+    }
+
+    render () {
+        const { isLoading } = this.state
+        if (isLoading) {
+            return (
+                <View style={styles.loading}>
+                    <ActivityIndicator
+                        animating={true}
+                        color={'green'}
+                        size={'large'}
+                        hidesWhenStopped={true}
+                    />
+                </View>
+            )
+        } else {
+            const { store } = this.state
+
+            return (
+                <Provider store={store}>
+                    <Navigation />
+                </Provider>
+            )
+        }
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    loading: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+})

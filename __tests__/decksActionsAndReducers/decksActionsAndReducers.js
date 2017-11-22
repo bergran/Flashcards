@@ -1,29 +1,28 @@
 /* globals expect, describe, test */
 // Actions
 
-import * as actions from '02-actions/deck/deckActions'
+import * as actions from '../../src/02-actions/deck/deckActions'
 
 // Reducer
 
-import deckReducer from '05-reducers/deck'
+import deckReducer from '../../src/05-reducers/deck'
 
 // Constants
 
-import * as constants from 'constants/deck/contants'
+import * as constants from '../../constants/deck/constants'
 
 // MockData
 
-import mock from 'mock/deck/deckMock'
+import deckMock from '../../mock/deck/deckMock'
 
 // InitialState
 
-import deckInitialState from 'src/05-reducers/initialStates/deck'
-import deckMock from "mock/deck/deckMock";
+import deckInitialState from '../../src/05-reducers/initialStates/deck'
 
 describe('Deck action and reducers', () => {
     test(constants.ADD_DECK, () => {
         // Params
-        const deck = mock.deckMock
+        const deck = deckMock.deckMock
         const deckId = Object.keys(deck)[0]
         // Action
         const expectedAction = {
@@ -31,7 +30,6 @@ describe('Deck action and reducers', () => {
             deck: {
                 [deckId]: {
                     title: deck[deckId].title,
-                    cards: deck[deckId].cards,
                     deleted: deck[deckId].deleted
                 }
             }
@@ -40,7 +38,6 @@ describe('Deck action and reducers', () => {
         const action = actions.addDeckAction({
             [deckId]: {
                 title: deck[deckId].title,
-                cards: deck[deckId].cards,
                 deleted: deck[deckId].deleted
             }
         })
@@ -69,11 +66,10 @@ describe('Deck action and reducers', () => {
 
         // Reducers
         expect(deckReducer(deckInitialState, action)).toEqual(
-            deckList.reduce((prevState, deck) => {
-                const deckId = Object.keys(deck)[0]
+            Object.keys(deckList).reduce((prevState, deckId) => {
                 return {
                     ...prevState,
-                    [deckId]: deck[deckId]
+                    [deckId]: deckList[deckId]
                 }
         }, {}))
     })
@@ -106,7 +102,7 @@ describe('Deck action and reducers', () => {
 
     test(constants.REMOVE_DECK, () => {
         // Params
-        const deck = mock.deckMock
+        const deck = deckMock.deckMock
         const deckId = Object.keys(deck)[0]
         // Action
         const expectedAction = {

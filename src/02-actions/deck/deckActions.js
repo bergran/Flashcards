@@ -1,6 +1,6 @@
-import * as types from 'constants/deck/contants'
+import * as types from '../../../constants/deck/constants'
 
-// ----- Actions -----
+// Actions
 
 export const addDeckListAction = decks => ({
     type: types.ADD_DECK_LIST,
