@@ -33,7 +33,7 @@ export default function deckReducer (state = {}, action) {
             return {
                 ...state,
                 [deckId]: {
-                    ...state[deckId],
+                    deleted: state[deckId].deleted,
                     title: deck[deckId].title
                 }
             }

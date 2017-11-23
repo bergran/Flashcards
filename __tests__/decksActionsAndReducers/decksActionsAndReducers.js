@@ -115,7 +115,7 @@ describe('Deck action and reducers', () => {
         expect(deckReducer(deck, action)).toEqual({
             ...deck,
             [deckId]: {
-                ...deck[deckId],
+                title: deck[deckId].title,
                 deleted: true
             }
         })
