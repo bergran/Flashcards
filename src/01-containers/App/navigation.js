@@ -1,24 +1,41 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet,  } from 'react-native'
-import { connect } from 'react-redux'
+import { Platform, View } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
-import { addDeckAction } from '../../02-actions/deck/deckActions'
+import FlashCardStatusBar from './FlashCardStatusBar'
 import ShowDecksView from '../Decks/view'
 
 const Tabs = TabNavigator({
     Decks: {
         screen: ShowDecksView,
-        navigationOption: {
-            tabBarLabel: 'All decks'
+        navigationOptions: {
+            tabBarLabel: 'Decks'
         }
     },
-    Decks2: {
+    createDeck: {
         screen: ShowDecksView,
-        navigationOption: {
-            tabBarLabel: 'No decks'
+        navigationOptions: {
+            tabBarLabel: 'New deck'
         }
-    }
-})
+    }},
+    {
+        navigationOptions: {
+                header: null
+        },
+        tabBarOptions: {
+            activeTintColor: Platform.OS === 'ios' ? '#2067d8' : '#fff',
+            style: {
+                height: 56,
+                backgroundColor: Platform.OS === 'ios' ? '#fff' : '#2067d8',
+                shadowColor: 'rgba(0, 0, 0, 0.24)',
+                shadowOffset: {
+                    width: 0,
+                    height: 3
+                },
+                shadowRadius: 6,
+                shadowOpacity: 1
+            }
+        }
+    })
 
 const MainNavigator = StackNavigator({
     Home: {
@@ -26,35 +43,16 @@ const MainNavigator = StackNavigator({
     }
 })
 
-// const FlashCardStatusBar =
-
 class Navigation extends Component {
 
     render () {
-        console.log('props', this.props)
         return (
-            <MainNavigator />
+            <View style={{flex: 1}}>
+                <FlashCardStatusBar />
+                <MainNavigator />
+            </View>
         )
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
-
-const mapStateToProps = state => ({
-    deck: state.deck,
-    quiz: state.quiz,
-    card: state.card
-})
-
-const mapDispatchToProps = dispatch => ({
-    addDeck: (deck) => dispatch(addDeckAction(deck))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
+export default Navigation
