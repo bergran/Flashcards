@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../02-actions/deck/deckActions'
-import mockData from '../../../mock/deck/deckMock'
 
 class ShowDecksView extends PureComponent {
     render () {
@@ -10,10 +9,6 @@ class ShowDecksView extends PureComponent {
         return (
             <Text>Hello</Text>
         )
-    }
-
-    componentDidMount () {
-        this.props.createDeck(mockData.deckMock)
     }
 }
 
