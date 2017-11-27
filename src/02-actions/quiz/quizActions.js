@@ -1,5 +1,5 @@
 import * as types from '../../../constants/quiz/constants'
-
+import * as persist from '../../03-services/asyncStorage/quiz'
 // Actions
 
 export const addQuizzesAction = quizzes => ({
@@ -41,3 +41,25 @@ export const continueQuizAction = quizId => ({
     type: types.CONTINUE_QUIZ,
     quizId
 })
+
+// Async Actions
+
+export const createQuiz = quiz => dispatch => {
+    persist.createQuiz(quiz)
+        .then(data => dispatch(createQuizAction(quiz)))
+}
+
+export const finishQuiz = quiz => dispatch => {
+    persist.mergeQuiz(quiz)
+        .then(data => dispatch(finishQuizAction(quiz)))
+}
+
+export const cancelQuiz = quiz => dispatch => {
+    persist.mergeQuiz(quiz)
+        .then(data => dispatch(cancelQuizAction(quiz)))
+}
+
+export const continueQuiz = quiz => dispatch => {
+    persist.mergeQuiz(quiz)
+        .then(data => dispatch(continueQuizAction(quiz)))
+}

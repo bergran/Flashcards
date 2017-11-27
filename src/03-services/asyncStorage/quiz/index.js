@@ -1,8 +1,8 @@
 import { AsyncStorage } from 'react-native'
 import { QUIZ } from '../../../../constants/quiz/constants'
 
-export const getQuiz = () => AsyncStorage.getItem(QUIZ)
+export const getQuizzes = () => AsyncStorage.getItem(QUIZ).then(quizzes => JSON.parse(quizzes))
 
-export const createQuiz = deck => AsyncStorage.setItem(QUIZ, deck)
+export const createQuiz = quiz => AsyncStorage.setItem(QUIZ, JSON.stringify(quiz))
 
-export const mergeQuiz = deck => AsyncStorage.mergeItem(QUIZ, deck)
+export const mergeQuiz = quiz => AsyncStorage.mergeItem(QUIZ, JSON.stringify(quiz))

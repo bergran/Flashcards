@@ -33,6 +33,11 @@ export const addDeck = deck => dispatch => {
         .catch(error => console.log('error', error))
 }
 
+export const editDeck = deck => dispatch => {
+    return persist.mergeDeck(Object.assign({}, deck, {title: deck.title}))
+        .then(data => dispatch(editDeckAction(deck)))
+}
+
 export const removeDeck = deck => dispatch => {
     const deckId = Object.keys(deck)[0]
     return persist.mergeDeck({
