@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Platform, View } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import FlashCardStatusBar from './FlashCardStatusBar'
-import ShowDecksView from '../Decks/view'
+import ShowDecksView from '../Decks/showDecks/view'
 
 const Tabs = TabNavigator({
     Decks: {

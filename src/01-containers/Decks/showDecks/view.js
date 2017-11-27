@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import { FlatList, View } from 'react-native'
 import { connect } from 'react-redux'
-import * as actions from '../../02-actions/deck/deckActions'
-import DeckCard from '../../00-components/deckCard'
+import * as actions from '../../../02-actions/deck/deckActions'
+import DeckCard from '../../../00-components/deckCard'
 
 class ShowDecksView extends PureComponent {
     render () {
