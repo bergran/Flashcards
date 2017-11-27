@@ -1,6 +1,5 @@
 import * as types from '../../../constants/deck/constants'
 import * as persist from '../../03-services/asyncStorage/decks'
-import deck from "../../05-reducers/initialStates/deck";
 
 // Actions
 
@@ -27,12 +26,11 @@ export const removeDeckAction = deck => ({
 // Async Actions
 
 export const addDeck = deck => dispatch => {
-    return persist.createDeck(deck)
+    return persist.createDeck(Object.assign({}, deck))
         .then(data => {
-            console.log(data)
             dispatch(addDeckAction(deck))
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log('error', error))
 }
 
 export const removeDeck = deck => dispatch => {
