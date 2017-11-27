@@ -3,6 +3,7 @@ import { Platform, View } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import FlashCardStatusBar from './FlashCardStatusBar'
 import ShowDecksView from '../Decks/showDecks/view'
+import CreateDeck from '../Decks/createDeck/view'
 
 const Tabs = TabNavigator({
     Decks: {
@@ -12,7 +13,7 @@ const Tabs = TabNavigator({
         }
     },
     createDeck: {
-        screen: ShowDecksView,
+        screen: CreateDeck,
         navigationOptions: {
             tabBarLabel: 'New deck'
         }
