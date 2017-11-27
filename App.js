@@ -6,7 +6,7 @@ import createStoreCustom from './src/06-store/store'
 import Navigation from './src/01-containers/App/navigation'
 import { getDecks } from "./src/03-services/asyncStorage/decks/index";
 import { getCards } from "./src/03-services/asyncStorage/cards/index";
-import { getQuiz } from "./src/03-services/asyncStorage/quiz/index";
+import { getQuizzes } from "./src/03-services/asyncStorage/quiz/index";
 
 export default class App extends Component {
     state = {
@@ -18,7 +18,7 @@ export default class App extends Component {
         Promise.all([
             getDecks(),
             getCards(),
-            getQuiz()
+            getQuizzes()
         ]).then(catalogs => {
             const store = createStoreCustom(reducers, {
                     deck: catalogs[0] || {},
