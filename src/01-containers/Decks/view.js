@@ -1,13 +1,30 @@
 import React, { PureComponent } from 'react'
-import { Text } from 'react-native'
+import { FlatList, View } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../02-actions/deck/deckActions'
+import DeckCard from '../../00-components/deckCard'
 
 class ShowDecksView extends PureComponent {
     render () {
-        const { decks } = this.props
+        const {
+            decks,
+            cards
+        } = this.props
+        const deckList = Object.keys(decks).map(deckId => ({
+            key: deckId,
+            id: deckId,
+            title: decks[deckId].title,
+            cards: Object.keys(cards).filter(cardId => cards[cardId].deckId === deckId).length
+        }))
         return (
-            <Text>Hello</Text>
+            <View>
+                <FlatList
+                    data={deckList}
+                    renderItem={deck => {
+                        return (<DeckCard deck={deck.item} />)
+                    }}
+                />
+            </View>
         )
     }
 }
