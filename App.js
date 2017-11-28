@@ -7,6 +7,7 @@ import Navigation from './src/01-containers/App/navigation'
 import { getDecks } from "./src/03-services/asyncStorage/decks/index";
 import { getCards } from "./src/03-services/asyncStorage/cards/index";
 import { getQuizzes } from "./src/03-services/asyncStorage/quiz/index";
+import formInitialState from './src/05-reducers/initialStates/form'
 
 export default class App extends Component {
     state = {
@@ -21,6 +22,7 @@ export default class App extends Component {
             getQuizzes()
         ]).then(catalogs => {
             const store = createStoreCustom(reducers, {
+                    form: formInitialState,
                     deck: catalogs[0] || {},
                     card: catalogs[1] || {},
                     quiz: catalogs[2] || {}
