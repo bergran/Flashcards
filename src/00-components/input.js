@@ -4,7 +4,7 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 
 export default class Input extends Component {
     static propTypes = {
-        autoCapitalize: PropTypes.bool,
+        autoCapitalize: PropTypes.oneOf(['none', 'sentences', 'words', 'characters']),
         autoCorrect: PropTypes.bool,
         defaultValue: PropTypes.string,
         disabled: PropTypes.bool,
@@ -25,7 +25,12 @@ export default class Input extends Component {
         defaultValue: '',
         onChange: () => null,
         password: false,
-        type: 'default'
+        type: 'default',
+        validations: []
+    }
+
+    state = {
+        error: null
     }
 
     render () {
@@ -52,23 +57,71 @@ export default class Input extends Component {
                         editable={!disabled}
                         secureTextEntry={password}
                         keyboardType={type}
-                        onChange={this.handleChange}
+                        onChangeText={this.handleChange}
                     />
                 </View>
             </View>
         )
     }
 
-    handleChange = e => {
-        e.preventDefault()
+    componentDidMount () {
+        const {
+            name,
+            defaultValue,
+            onChange
+        } = this.props
+        onChange(name, defaultValue, this.handleValidations(defaultValue))
+    }
+
+    handleChange = text => {
         const {
             defaultValue,
             name,
             onChange
         } = this.props
-        const value = e.target.value
-        const isValid = true
+        const [
+            value,
+            isValid
+        ] = [
+            text,
+            this.handleValidations(text)
+        ]
+
         onChange(name, value, isValid, value !== defaultValue)
+    }
+
+    handleValidations = value => {
+        const {
+            isRequired,
+            defaultValue,
+            validations
+        } = this.props
+        const isChanged = defaultValue !== value
+        const [isValid, error] = this.isValid(value)
+        this.setState({
+            error: error
+        })
+        return (isRequired && isValid && isChanged) || (validations.length > 0 && isValid) || (!isRequired)
+    }
+
+    isValid = value => {
+        const { validations } = this.props
+        let [
+            error,
+            position,
+            totalValidations,
+            isValid,
+            continueValidation
+        ] = [null, 0, validations.length, !(totalValidations > 0),totalValidations > 0]
+
+        while (continueValidation) {
+            isValid = validations[position].isValid(value)
+            error = isValid ? validations[position].error : null
+            continueValidation = isValid && position < totalValidations
+            position++
+        }
+
+        return [isValid, error]
     }
 }
 
@@ -78,14 +131,14 @@ const style = StyleSheet.create({
     },
     label: {
         color: '#4382e8',
-        fontSize: 25
+        fontSize: 20
     },
     inputWrapper: {
-        height: 150
+        height: 50
     },
     input: {
         fontSize: 20,
-        padding: 5
+        padding: 10
     },
 
 })

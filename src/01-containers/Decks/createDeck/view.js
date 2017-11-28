@@ -1,26 +1,28 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 import { Button, StyleSheet, Text, View } from 'react-native'
+import { connect } from 'react-redux'
+import {
+    deckMergeInputAction,
+    deckCleanFormAction
+} from '../../../02-actions/form/formActions'
 import Input from '../../../00-components/input'
 
+const mapStateToProps = state => ({
+    inputs: state.form.deck
+})
 
-
-@connect()
+@connect(mapStateToProps, {
+    deckMergeInputAction
+})
 export default class CreateDeck extends PureComponent {
-    state = {
-        title: {
-            value: '',
-            isValid: null
-        }
-    }
-
     render () {
-        const { title } = this.state
+        const { title } = this.props.inputs
+
         return (
             <View style={style.container}>
                 <Text style={style.title}>Create Deck</Text>
                 <Input
-                    autoCapitalize
+                    autoCapitalize={'sentences'}
                     placeholder={'Insert input title'}
                     isRequired
                     label={'Title'}
@@ -31,18 +33,14 @@ export default class CreateDeck extends PureComponent {
                 <Button
                     title={'Create'}
                     onPress={() => alert('hey')}
+                    disabled={!title.isValid}
                 />
             </View>
         )
     }
 
     handleChange = (name, value, isValid) => {
-        this.setState({
-            [name]: {
-                value,
-                isValid
-            }
-        })
+        this.props.deckMergeInputAction(name, value, isValid)
     }
 }
 
@@ -50,7 +48,8 @@ const style = StyleSheet.create({
     container: {
         padding: 15,
         backgroundColor: '#FFF',
-        flex: 1
+        flex: 1,
+        justifyContent: 'flex-start'
     },
     title: {
         textAlign: 'center',
