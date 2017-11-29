@@ -43,10 +43,9 @@ describe('Card actions and reducers', () => {
         // Actions
         const expectedAction = {
             type: types.ADD_CARD,
-            deckId: '123456789k',
             card
         }
-        const action = actions.addCardAction('123456789k', card)
+        const action = actions.addCardAction(card)
         expect(action).toEqual(expectedAction)
 
         // Reducers

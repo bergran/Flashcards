@@ -11,7 +11,7 @@ export default function cardReducer (state = card, action) {
                     [cardId]: {
                         question: action.cards[cardId].question,
                         answer: action.cards[cardId].answer,
-                        idDeck: action.cards[cardId].idDeck,
+                        deckId: action.cards[cardId].deckId,
                         deleted: action.cards[cardId].deleted
                     }
                 }
