@@ -8,7 +8,7 @@ class ShowDecksView extends PureComponent {
     render () {
         const {
             decks,
-            cards
+            cards,
         } = this.props
         const deckList = Object.keys(decks).map(deckId => ({
             key: deckId,
@@ -21,11 +21,19 @@ class ShowDecksView extends PureComponent {
                 <FlatList
                     data={deckList}
                     renderItem={deck => {
-                        return (<DeckCard deck={deck.item} />)
+                        return (<DeckCard
+                            deck={deck.item}
+                            onPress={this.handlePress}
+                        />)
                     }}
                 />
             </View>
         )
+    }
+
+    handlePress = id => {
+        const { navigation } = this.props
+        navigation.navigate('DeckEntry', {id, name: this.props.decks[id].title})
     }
 }
 

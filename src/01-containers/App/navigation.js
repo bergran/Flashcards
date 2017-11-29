@@ -4,6 +4,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import FlashCardStatusBar from './FlashCardStatusBar'
 import ShowDecksView from '../Decks/showDecks/view'
 import CreateDeck from '../Decks/createDeck/view'
+import entryDeck from '../Decks/entryDeck/view'
 
 const Tabs = TabNavigator({
     Decks: {
@@ -41,6 +42,16 @@ const Tabs = TabNavigator({
 const MainNavigator = StackNavigator({
     Home: {
         screen: Tabs
+    },
+    DeckEntry: {
+        screen: entryDeck,
+        path: 'entryDeck',
+        navigationOptions: {
+            headerTintColor: '#FFF',
+            headerStyle: {
+                backgroundColor: '#2067d8',
+            }
+        }
     }
 })
 

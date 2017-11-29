@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Platform, StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Proptypes from 'prop-types'
 import { capitalize } from '../../utils/tools'
 
@@ -17,11 +17,26 @@ class DeckCard extends PureComponent {
             deck
         } = this.props
         return (
-            <View key={deck.id} style={styles.deckCardContainer}>
-                <Text style={styles.deckTitle}>{ capitalize(deck.title) }</Text>
-                <Text style={styles.deckCards}>{ deck.cards } cards</Text>
-            </View>
+            <TouchableOpacity
+                onPress={this.handlePress}
+            >
+                <View
+                    key={deck.id}
+                    style={styles.deckCardContainer}
+                >
+                    <Text style={styles.deckTitle}>{ capitalize(deck.title) }</Text>
+                    <Text style={styles.deckCards}>{ deck.cards } cards</Text>
+                </View>
+            </TouchableOpacity>
         )
+    }
+
+    handlePress = () => {
+        const {
+            onPress,
+            deck
+        } = this.props
+        onPress(deck.id)
     }
 }
 
