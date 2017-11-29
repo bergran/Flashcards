@@ -47,6 +47,7 @@ export default class entryDeck extends PureComponent {
                             <Button
                                 title={'Add card'}
                                 color={'#2067d8'}
+                                onPress={this.handlePress}
                             />
                         </View>
                         <View style={styles.quizButton}>
@@ -59,6 +60,13 @@ export default class entryDeck extends PureComponent {
                 </View>
             )
         }
+    }
+
+    handlePress = () => {
+        const { navigation } = this.props
+        const { id } = navigation.state.params
+
+        navigation.navigate('AddCard', {deckId: id})
     }
 }
 

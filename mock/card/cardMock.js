@@ -3,8 +3,7 @@ export default {
         '123456789k': {
             question: 'What you did yesterday?',
             answer: 'I met with my friend in cinema',
-            isCorrect: true,
-            idDeck: '123456789k',
+            deckId: '123456789k',
             deleted: false
         }
     },
@@ -12,8 +11,7 @@ export default {
         '123456789k': {
             question: 'Question modified',
             answer: 'Answer modified',
-            isCorrect: false,
-            idDeck: '123456789k',
+            deckId: '123456789k',
             deleted: false
         }
     },
@@ -21,8 +19,7 @@ export default {
         '123456789k': {
             question: 'What you did yesterday?',
             answer: 'I met with my friend in cinema',
-            isCorrect: true,
-            idDeck: '123456789k',
+            deckId: '123456789k',
             deleted: true
         }
     },
@@ -30,15 +27,13 @@ export default {
         '123456789k': {
             question: 'What you did yesterday?',
             answer: 'I met with my friend in cinema',
-            isCorrect: true,
-            idDeck: '123456789k',
+            deckId: '123456789k',
             deleted: false
         },
         '123456789j': {
             question: 'What is the facebook framework on frontend?',
             answer: 'Angular',
-            isCorrect: false,
-            idDeck: '123456789k',
+            deckId: '123456789k',
             deleted: false
         }
     }
