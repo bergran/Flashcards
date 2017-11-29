@@ -1,5 +1,6 @@
 import * as types from '../../../constants/cards/constants'
 import * as persist from '../../03-services/asyncStorage/cards'
+import uuidv4 from 'uuid'
 
 // Actions
 
@@ -8,10 +9,9 @@ export const addCardsAction = cards => ({
     cards
 })
 
-export const addCardAction = (deckId, card) => ({
+export const addCardAction = card => ({
     type: types.ADD_CARD,
-    card,
-    deckId
+    card
 })
 
 export const editCardAction = card => ({
@@ -26,7 +26,16 @@ export const removeCardAction = cardId => ({
 
 // Async actions
 
-export const addCard = card => dispatch => {
+export const addCard = ({question, deckId, answer}) => dispatch => {
+    const card = {
+        [uuidv4()]: {
+            question,
+            deckId,
+            answer,
+            deleted: false
+        }
+    }
+
     persist.createCard(card)
         .then(data => dispatch(addCardAction(card)))
 }

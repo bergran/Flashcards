@@ -2,7 +2,7 @@ import * as types from '../../constants/cards/constants'
 import card from "./initialStates/card";
 
 export default function cardReducer (state = card, action) {
-    let deckId, cardId, card, cards
+    let cardId, card, cards
     switch (action.type) {
         case types.ADD_CARDS_LIST:
             cards = Object.keys(action.cards).reduce((state, cardId) => {
@@ -11,7 +11,6 @@ export default function cardReducer (state = card, action) {
                     [cardId]: {
                         question: action.cards[cardId].question,
                         answer: action.cards[cardId].answer,
-                        isCorrect: action.cards[cardId].isCorrect,
                         idDeck: action.cards[cardId].idDeck,
                         deleted: action.cards[cardId].deleted
                     }
@@ -22,13 +21,15 @@ export default function cardReducer (state = card, action) {
                 ...cards
             }
         case types.ADD_CARD:
-            deckId = action.deckId
             card = action.card
             cardId = Object.keys(card)[0]
             cards = Object.keys(state).reduce((prevState, cardIdR) => {
                 if (cardIdR !== cardId) {
                     return {
-                        ...state[cardIdR]
+                        ...prevState,
+                        [cardIdR]: {
+                            ...state[cardIdR]
+                        }
                     }
                 }
             }, {})
@@ -37,8 +38,7 @@ export default function cardReducer (state = card, action) {
                 [cardId]: {
                     question: card[cardId].question,
                     answer: card[cardId].answer,
-                    isCorrect: card[cardId].isCorrect,
-                    idDeck: card[cardId].idDeck,
+                    deckId: card[cardId].deckId,
                     deleted: false
                 }
             }
@@ -51,7 +51,6 @@ export default function cardReducer (state = card, action) {
                     ...state[cardId],
                     question: card[cardId].question,
                     answer: card[cardId].answer,
-                    isCorrect: card[cardId].isCorrect,
                 }
             }
         case types.REMOVE_CARD:
