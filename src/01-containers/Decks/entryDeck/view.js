@@ -16,7 +16,6 @@ export default class entryDeck extends PureComponent {
     }
 
     render () {
-        console.log(this.props)
         return (
             <View style={styles.container}>
                 <Text>Hello world</Text>
