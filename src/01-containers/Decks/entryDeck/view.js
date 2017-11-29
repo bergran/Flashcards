@@ -80,12 +80,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     addCardButton: {
-        width: 300,
-        color: '#FFF'
+        width: 200,
     },
     quizButton: {
         width: 200,
         marginTop: 20,
-        color: '#2067d8'
     }
 })
