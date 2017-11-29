@@ -20,7 +20,7 @@ export default class Input extends Component {
     }
 
     static defaultProps = {
-        autoCapitalize: true,
+        autoCapitalize: 'sentences',
         autoCorrect: false,
         defaultValue: '',
         onChange: () => null,
