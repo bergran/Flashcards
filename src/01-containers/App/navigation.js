@@ -5,6 +5,7 @@ import FlashCardStatusBar from './FlashCardStatusBar'
 import ShowDecksView from '../Decks/showDecks/view'
 import CreateDeck from '../Decks/createDeck/view'
 import entryDeck from '../Decks/entryDeck/view'
+import AddCard from '../Cards/addCard'
 
 const Tabs = TabNavigator({
     Decks: {
@@ -50,6 +51,15 @@ const MainNavigator = StackNavigator({
             headerTintColor: '#FFF',
             headerStyle: {
                 backgroundColor: '#2067d8',
+            }
+        }
+    },
+    AddCard: {
+        screen: AddCard,
+        navigationOptions: {
+            headerTintColor: '#FFF',
+            headerStyle: {
+                backgroundColor: '#2067d8'
             }
         }
     }
