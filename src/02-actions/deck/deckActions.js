@@ -1,3 +1,4 @@
+import uuidv4 from 'uuid'
 import * as types from '../../../constants/deck/constants'
 import * as persist from '../../03-services/asyncStorage/decks'
 
@@ -25,8 +26,14 @@ export const removeDeckAction = deck => ({
 
 // Async Actions
 
-export const addDeck = deck => dispatch => {
-    return persist.createDeck(Object.assign({}, deck))
+export const addDeck = (title) => dispatch => {
+    const deck = {
+        [uuidv4()]: {
+            title,
+            deleted: false
+        }
+    }
+    return persist.mergeDeck(Object.assign({}, deck))
         .then(data => {
             dispatch(addDeckAction(deck))
         })
