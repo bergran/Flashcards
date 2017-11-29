@@ -5,5 +5,14 @@ export default {
             isValid: null,
         }
     },
-    card: {}
+    card: {
+        question: {
+            value: '',
+            isValid: null
+        },
+        answer: {
+            value: '',
+            isValid: null
+        }
+    }
 }
