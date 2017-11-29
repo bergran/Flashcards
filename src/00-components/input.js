@@ -101,7 +101,8 @@ export default class Input extends Component {
         this.setState({
             error: error
         })
-        return (isRequired && isValid && isChanged) || (validations.length > 0 && isValid) || (!isRequired)
+        return (isRequired && isValid && validations.length > 0) ||
+            (validations.length > 0 && isValid) || (!isRequired)
     }
 
     isValid = value => {
@@ -112,12 +113,12 @@ export default class Input extends Component {
             totalValidations,
             isValid,
             continueValidation
-        ] = [null, 0, validations.length, !(totalValidations > 0),totalValidations > 0]
+        ] = [null, 0, validations.length, !(validations.length > 0),validations.length > 0]
 
         while (continueValidation) {
             isValid = validations[position].isValid(value)
             error = isValid ? validations[position].error : null
-            continueValidation = isValid && position < totalValidations
+            continueValidation = isValid && position < totalValidations - 1
             position++
         }
 

@@ -31,6 +31,13 @@ export default class CreateDeck extends PureComponent {
                     label={'Title'}
                     name={'title'}
                     onChange={this.handleChange}
+                    validations={[
+                        {
+                            isValid: value => value.length > 0,
+                            error: 'Error, field blank and is required',
+                            success: 'Well done!'
+                        }
+                    ]}
                     value={title.value}
                 />
                 <Button
