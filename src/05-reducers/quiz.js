@@ -30,8 +30,6 @@ export default function quizReducer (state = {}, action) {
                 [quizId]: {
                     deckId,
                     answers: [],
-                    fails: 0,
-                    success: 0,
                     date: action.date,
                     annotation: '',
                     isCancelled: false,
@@ -42,14 +40,11 @@ export default function quizReducer (state = {}, action) {
         case types.ADD_ANSWER_QUIZ:
             quizId = action.quizId
             const answer = action.answer
-            const isCorrect = action.isCorrect
             return {
                 ...state,
                 [quizId]: {
                     ...state[quizId],
-                    answers: [].concat(state[quizId].answers, answer),
-                    fails: !isCorrect ? state[quizId].fails + 1 : state[quizId].fails,
-                    success: isCorrect ? state[quizId].success + 1 : state[quizId].success
+                    answers: [].concat(state[quizId].answers, answer)
                 }
             }
         case types.ADD_ANNOTATION_QUIZ:

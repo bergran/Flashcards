@@ -14,11 +14,10 @@ export const createQuizAction = (quizId, deckId, date) => ({
     date
 })
 
-export const addAnswerQuizAction = (quizId, answer, isCorrect) => ({
+export const addAnswerQuizAction = (quizId, answer) => ({
     type: types.ADD_ANSWER_QUIZ,
     quizId,
-    answer,
-    isCorrect
+    answer
 })
 
 export const addAnnotationQuizAction = (quizId, annotation) => ({
