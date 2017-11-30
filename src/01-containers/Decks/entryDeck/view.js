@@ -78,9 +78,10 @@ export default class entryDeck extends PureComponent {
     handleQuizStart = () => {
         const { navigation, createQuiz } = this.props
         const deckId = navigation.state.params.id
+        const quizId = uuidv4()
+        createQuiz(quizId, deckId)
+            .then(() => navigation.navigate('QuizGame', {deckId, quizId}))
 
-        createQuiz(uuidv4(), deckId)
-        navigation.navigate('QuizGame', {deckId: deckId})
     }
 }
 
