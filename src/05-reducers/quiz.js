@@ -10,8 +10,6 @@ export default function quizReducer (state = {}, action) {
                     [quizId]: {
                         deckId: action.quizzes[quizId].deckId,
                         answers: action.quizzes[quizId].answers,
-                        fails: action.quizzes[quizId].fails,
-                        success: action.quizzes[quizId].success,
                         date: action.quizzes[quizId].date,
                         isCancelled: action.quizzes[quizId].isCancelled,
                         isFinished: action.quizzes[quizId].isFinished,
