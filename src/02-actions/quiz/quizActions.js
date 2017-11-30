@@ -50,8 +50,8 @@ export const createQuiz = (quizId, deckId) => dispatch => {
         deckId,
         date: Date.now()
     }
-    persist.createQuiz(quiz)
-        .then(data => dispatch(createQuizAction(quiz)))
+    return persist.createQuiz(quiz)
+        .then(data => dispatch(createQuizAction(quiz.quizId, quiz.deckId, quiz.date)))
 }
 
 export const finishQuiz = quiz => dispatch => {
