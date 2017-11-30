@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 import { Button, StyleSheet, View } from 'react-native'
-import Input from '../../00-components/input'
+import Input from '../../../00-components/input'
 import { connect } from 'react-redux'
 import {
     cardMergeInputAction,
     cardCleanFormAction
-} from "../../02-actions/form/formActions";
-import { addCard } from "../../02-actions/cards/cardActions";
+} from "../../../02-actions/form/formActions";
+import { addCard } from "../../../02-actions/cards/cardActions";
 
 const mapStateToProps = state => ({
     inputs: state.form.card
