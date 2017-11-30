@@ -44,7 +44,12 @@ export const continueQuizAction = quizId => ({
 
 // Async Actions
 
-export const createQuiz = quiz => dispatch => {
+export const createQuiz = (quizId, deckId) => dispatch => {
+    const quiz = {
+        quizId,
+        deckId,
+        date: Date.now()
+    }
     persist.createQuiz(quiz)
         .then(data => dispatch(createQuizAction(quiz)))
 }
