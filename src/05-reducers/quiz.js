@@ -23,18 +23,18 @@ export default function quizReducer (state = {}, action) {
                 ...quizzes
             }
         case types.CREATE_QUIZ:
-            deckId = action.deckId
-            quizId = action.quizId
+            quizId = Object.keys(action.quiz)[0]
+            deckId = action.quiz[quizId].deckId
             return {
                 ...state,
                 [quizId]: {
                     deckId,
-                    answers: [],
-                    date: action.date,
-                    annotation: '',
-                    isCancelled: false,
-                    isFinished: false,
-                    isContinued: null
+                    answers: action.quiz[quizId].answers,
+                    date: action.quiz[quizId].date,
+                    annotation: action.quiz[quizId].annotation,
+                    isCancelled: action.quiz[quizId].isCancelled,
+                    isFinished: action.quiz[quizId].isFinished,
+                    isContinued: action.quiz[quizId].isContinued
                 }
             }
         case types.ADD_ANSWER_QUIZ:
@@ -57,6 +57,7 @@ export default function quizReducer (state = {}, action) {
                 }
             }
         case types.CANCEL_QUIZ:
+            debugger
             quizId = action.quizId
             return {
                 ...state,

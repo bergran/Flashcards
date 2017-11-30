@@ -7,11 +7,9 @@ export const addQuizzesAction = quizzes => ({
     quizzes
 })
 
-export const createQuizAction = (quizId, deckId, date) => ({
+export const createQuizAction = quiz => ({
     type: types.CREATE_QUIZ,
-    quizId,
-    deckId,
-    date
+    quiz
 })
 
 export const addAnswerQuizAction = (quizId, answer) => ({
@@ -45,12 +43,17 @@ export const continueQuizAction = quizId => ({
 
 export const createQuiz = (quizId, deckId) => dispatch => {
     const quiz = {
-        quizId,
-        deckId,
-        date: Date.now()
-    }
+        [quizId]: {
+            deckId,
+            answers: [],
+            date: Date.now(),
+            annotation: '',
+            isCancelled: false,
+            isFinished: false,
+            isContinued: null
+        }}
     return persist.createQuiz(quiz)
-        .then(data => dispatch(createQuizAction(quiz.quizId, quiz.deckId, quiz.date)))
+        .then(data => dispatch(createQuizAction(quiz)))
 }
 
 export const finishQuiz = quiz => dispatch => {

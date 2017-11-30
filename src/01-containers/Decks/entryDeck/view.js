@@ -14,7 +14,8 @@ const mapStateToProps = (state, ownProps) => {
     const { card } = state
     return {
         deck: state.deck[id],
-        cards: Object.keys(card).filter(cardId => card[cardId].deckId === id).length
+        cards: Object.keys(card).filter(cardId => card[cardId].deckId === id).length,
+        quiz: state.quiz
     }
 }
 
