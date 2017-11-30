@@ -10,10 +10,10 @@ const mapStateToProps = (state, ownProps) => ({
             return prevState
         }
     }),
-    cards: Object.keys(state.cards).map(cardId => {
+    cards: Object.keys(state.card).map(cardId => {
         const deckId = ownProps.navigation.state.params.deckId
         if (state.card[cardId].deckId === deckId) {
-            return state.cards[cardId]
+            return state.card[cardId]
         }
     }),
     quiz: state.quiz[ownProps.navigation.state.params.quizId]
@@ -22,6 +22,7 @@ const mapStateToProps = (state, ownProps) => ({
 @connect(mapStateToProps)
 export default class QuizGame extends PureComponent {
     render () {
+        console.log(this.props.quiz)
         return (
             <View>
                 <Text>
@@ -29,5 +30,10 @@ export default class QuizGame extends PureComponent {
                 </Text>
             </View>
         )
+    }
+
+    componentWillUnmount () {
+        // works to back
+        console.log('sale')
     }
 }
