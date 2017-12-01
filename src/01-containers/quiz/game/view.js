@@ -74,7 +74,7 @@ export default class QuizGame extends PureComponent {
                             color={'#3fc433'}
                             title={'Correct'}
                             style={{fontSize: 20}}
-                            onPress={() => alert('correct')}
+                            onPress={this.handleAddAnswer('correct')}
                         />
                     </View>
                     <View
@@ -83,7 +83,7 @@ export default class QuizGame extends PureComponent {
                         <Button
                             color={'#ba1f1f'}
                             title={'Incorrect'}
-                            onPress={() => alert('incorrect')}
+                            onPress={this.handleAddAnswer('incorrect')}
                         />
                     </View>
                 </View>
@@ -110,6 +110,22 @@ export default class QuizGame extends PureComponent {
             show: noShow,
             noShow: show
         })
+    }
+
+    handleAddAnswer = answer => () => {
+        const { navigation, addAnswerQuizAction, cards, quiz } = this.props
+        const totalCards = cards.length
+        const answersDone = quiz.answers.length
+        const [
+            totalCards,
+            answersDone
+        ] = [cards.length, quiz.answers.length]
+        const { quizId } = navigation.state.params
+        addAnswerQuizAction(quizId, answer)
+
+        if (answersDone === totalCards) {
+
+        }
     }
 }
 
