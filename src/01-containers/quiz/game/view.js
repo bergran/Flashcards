@@ -91,13 +91,17 @@ export default class QuizGame extends PureComponent {
         )
     }
 
-    async componentWillUnmount () {
+    componentWillUnmount () {
         // works to back
         const {
             cancelQuiz,
-            navigation
+            navigation,
+            quiz:quizRaw
         } = this.props
-        await cancelQuiz(navigation.state.params.quizId)
+        const quizId = navigation.state.params.quizId
+        const quiz = Object.assign({}, {[quizId]:
+                    Object.assign({}, quizRaw, {isCancelled: true, isContinued: false})})
+        cancelQuiz(quiz)
     }
 
     handleSwitch = () => {
