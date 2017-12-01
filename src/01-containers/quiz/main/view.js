@@ -7,6 +7,7 @@ import {
     addAnswerQuizAction
 } from '../../../02-actions/quiz/quizActions'
 import QuizGame from '../game'
+import QuizResults from '../results'
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -31,7 +32,6 @@ export default class Quiz extends PureComponent {
 
     render () {
         const { cards, quiz } = this.props
-        const { finished } = this.props
         const totalCards = cards.length
         const answersDone = quiz.answers.length
         if (answersDone < totalCards) {
@@ -55,11 +55,9 @@ export default class Quiz extends PureComponent {
         } else {
             return (
                 <View
-                    className={styles.container}
+                    style={styles.container}
                 >
-                    <View>
-                        <Text>Hello</Text>
-                    </View>
+                    <QuizResults />
                 </View>
             )
         }
@@ -99,8 +97,6 @@ export default class Quiz extends PureComponent {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#FFF',
         padding: 20
     }
