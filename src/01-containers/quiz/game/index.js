@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 import {
     Button,
     TouchableOpacity,
@@ -7,59 +6,44 @@ import {
     Text,
     View
 } from 'react-native'
-import {
-    cancelQuiz,
-    finishQuiz,
-    addAnswerQuizAction
-} from '../../../02-actions/quiz/quizActions'
 import { capitalize } from '../../../../utils/tools'
+import PropTypes from 'prop-types'
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        deck: Object.keys(state.deck).reduce((prevState, deckId) => {
-            if (deckId === ownProps.navigation.state.params.deckId) {
-                return Object.assign({}, prevState, state.deck[deckId])
-            } else {
-                return prevState
-            }
-        }),
-        cards: Object.keys(state.card).map(cardId => {
-            const deckId = ownProps.navigation.state.params.deckId
-            if (state.card[cardId].deckId === deckId) {
-                return state.card[cardId]
-            }
-        }),
-        quiz: state.quiz[ownProps.navigation.state.params.quizId]
-    }
-}
 
-@connect(mapStateToProps, {
-    cancelQuiz,
-    finishQuiz,
-    addAnswerQuizAction
-})
 export default class QuizGame extends PureComponent {
+    static propTypes = {
+        card: PropTypes.shape({
+            question: PropTypes.string,
+            answer: PropTypes.string,
+        }),
+        answersDone: PropTypes.number.isRequired,
+        cards: PropTypes.number.isRequired,
+        onAddAnswer: PropTypes.func,
+        onCancel: PropTypes.func,
+        onFinish: PropTypes.func
+    }
+
+    static defaultProps = {
+        onAddAnswer: () => null,
+        onCancel: () => null,
+        onFinish: () => null
+    }
+
     state = {
         show: 'question',
         noShow: 'answer'
     }
 
-    static navigationOptions = {
-        title: 'Quiz'
-    }
-
     render () {
-        const { cards, quiz } = this.props
-        const totalCards = cards.length
-        const answersDone = quiz.answers.length
+        const { card, answersDone, cards } = this.props
         const { show, noShow } = this.state
         return (
             <View style={styles.container}>
                 <View>
-                    <Text style={styles.title}>{`${answersDone + 1}/${totalCards} cards`}</Text>
+                    <Text style={styles.title}>{`${answersDone}/${cards} cards`}</Text>
                 </View>
                 <View style={styles.info}>
-                    <Text style={styles.infoText}>{cards[answersDone][show]}</Text>
+                    <Text style={styles.infoText}>{card[show]}</Text>
                     <TouchableOpacity
                         onPress={this.handleSwitch}
                     >
@@ -93,15 +77,8 @@ export default class QuizGame extends PureComponent {
 
     componentWillUnmount () {
         // works to back
-        const {
-            cancelQuiz,
-            navigation,
-            quiz:quizRaw
-        } = this.props
-        const quizId = navigation.state.params.quizId
-        const quiz = Object.assign({}, {[quizId]:
-                    Object.assign({}, quizRaw, {isCancelled: true, isContinued: false})})
-        cancelQuiz(quiz)
+        const {cards, answersDone, onCancel} = this.props
+        answersDone < cards && onCancel()
     }
 
     handleSwitch = () => {
@@ -113,19 +90,9 @@ export default class QuizGame extends PureComponent {
     }
 
     handleAddAnswer = answer => () => {
-        const { navigation, addAnswerQuizAction, cards, quiz } = this.props
-        const totalCards = cards.length
-        const answersDone = quiz.answers.length
-        const [
-            totalCards,
-            answersDone
-        ] = [cards.length, quiz.answers.length]
-        const { quizId } = navigation.state.params
-        addAnswerQuizAction(quizId, answer)
-
-        if (answersDone === totalCards) {
-
-        }
+        const { answersDone, cards, onAddAnswer, onFinish } = this.props
+        onAddAnswer(answer)
+        answersDone === cards && onFinish()
     }
 }
 
@@ -133,9 +100,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFF',
-        justifyContent: 'space-between',
-        padding: 20
-
+        justifyContent: 'space-between'
     },
     title: {
         fontSize: 20

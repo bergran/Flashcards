@@ -58,15 +58,15 @@ export const createQuiz = (quizId, deckId) => dispatch => {
 
 export const finishQuiz = quiz => dispatch => {
     persist.mergeQuiz(quiz)
-        .then(data => dispatch(finishQuizAction(quiz)))
+        .then(data => dispatch(finishQuizAction(Object.keys(quiz)[0])))
 }
 
 export const cancelQuiz = quiz => dispatch => {
     persist.mergeQuiz(quiz)
-        .then(data => dispatch(cancelQuizAction(quiz)))
+        .then(data => dispatch(cancelQuizAction(Object.keys(quiz)[0])))
 }
 
 export const continueQuiz = quiz => dispatch => {
     persist.mergeQuiz(quiz)
-        .then(data => dispatch(continueQuizAction(quiz)))
+        .then(data => dispatch(continueQuizAction(Object.keys(quiz)[0])))
 }
