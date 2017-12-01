@@ -6,7 +6,7 @@ import ShowDecksView from '../Decks/showDecks/view'
 import CreateDeck from '../Decks/createDeck/view'
 import entryDeck from '../Decks/entryDeck/view'
 import AddCard from '../Cards/addCard/addCard'
-import QuizGame from '../quiz/game/view'
+import Quiz from '../quiz/main/view'
 
 const Tabs = TabNavigator({
     Decks: {
@@ -64,8 +64,8 @@ const MainNavigator = StackNavigator({
             }
         }
     },
-    QuizGame: {
-        screen: QuizGame,
+    Quiz: {
+        screen: Quiz,
         navigationOptions: {
             headerTintColor: '#FFF',
             headerStyle: {

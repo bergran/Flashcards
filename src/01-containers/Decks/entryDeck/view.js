@@ -81,7 +81,7 @@ export default class entryDeck extends PureComponent {
         const deckId = navigation.state.params.id
         const quizId = uuidv4()
         createQuiz(quizId, deckId)
-            .then(() => navigation.navigate('QuizGame', {deckId, quizId}))
+            .then(() => navigation.navigate('Quiz', {deckId, quizId}))
 
     }
 }
