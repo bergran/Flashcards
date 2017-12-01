@@ -57,7 +57,6 @@ export default function quizReducer (state = {}, action) {
                 }
             }
         case types.CANCEL_QUIZ:
-            debugger
             quizId = action.quizId
             return {
                 ...state,

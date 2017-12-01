@@ -57,11 +57,9 @@ describe('Quiz Actions and reducers', () => {
         // Actions
         const expectedAction = {
             type: types.CREATE_QUIZ,
-            deckId,
-            quizId,
-            date
+            quiz
         }
-        const action = actions.createQuizAction(deckId, quizId, date)
+        const action = actions.createQuizAction(quiz)
         expect(action).toEqual(expectedAction)
 
         // Reducers
