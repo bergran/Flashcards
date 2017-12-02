@@ -4,10 +4,12 @@ import { StyleSheet ,Text, View } from 'react-native'
 import {
     cancelQuiz,
     finishQuiz,
-    addAnswerQuizAction
+    addAnswerQuizAction,
+    createQuiz
 } from '../../../02-actions/quiz/quizActions'
 import QuizGame from '../game'
 import QuizResults from '../results'
+import uuidv4 from 'uuid'
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -23,11 +25,14 @@ const mapStateToProps = (state, ownProps) => {
 @connect(mapStateToProps, {
     cancelQuiz,
     finishQuiz,
-    addAnswerQuizAction
+    addAnswerQuizAction,
+    createQuiz
 })
 export default class Quiz extends PureComponent {
-    static navigationOptions = {
-        title: 'Quiz'
+    static navigationOptions = ({ navigation })  => {
+        return {
+            title: `Quiz: ${navigation.state.params.deckTitle}`
+        }
     }
 
     render () {
@@ -57,7 +62,11 @@ export default class Quiz extends PureComponent {
                 <View
                     style={styles.container}
                 >
-                    <QuizResults />
+                    <QuizResults
+                        answers={quiz.answers}
+                        onBack={this.handleClose}
+                        onReset={this.handleReset}
+                    />
                 </View>
             )
         }
@@ -66,7 +75,6 @@ export default class Quiz extends PureComponent {
     handleAddAnswer = answer => {
         const { addAnswerQuizAction, navigation } = this.props
         const { quizId } = navigation.state.params
-        alert('add answer')
         addAnswerQuizAction(quizId, answer)
     }
 
@@ -76,7 +84,6 @@ export default class Quiz extends PureComponent {
             navigation,
             quiz:quizRaw
         } = this.props
-        alert('cancel')
         const quizId = navigation.state.params.quizId
         const quiz = Object.assign({}, {[quizId]:
             Object.assign({}, quizRaw, {isCancelled: true, isContinued: false})})
@@ -92,6 +99,20 @@ export default class Quiz extends PureComponent {
             })
         })
     }
+
+    handleClose = () => {
+        this.props.navigation.goBack()
+    }
+
+    handleReset = () => {
+        this.props.navigation.goBack()
+        const quizId = uuidv4()
+        const { navigation, createQuiz } = this.props
+        const { deckId, deckTitle } = navigation.state.params
+        createQuiz(quizId, deckId)
+            .then(() => navigation.navigate('Quiz', {deckId, quizId, deckTitle}))
+    }
+
 }
 
 const styles = StyleSheet.create({
