@@ -6,17 +6,22 @@ import {
     View
 } from 'react-native'
 import { connect } from 'react-redux'
+import { createQuiz } from "../../../02-actions/quiz/quizActions";
+import uuidv4 from 'uuid'
 
 const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps.navigation.state.params
     const { card } = state
     return {
         deck: state.deck[id],
-        cards: Object.keys(card).filter(cardId => card[cardId].deckId === id).length
+        cards: Object.keys(card).filter(cardId => card[cardId].deckId === id).length,
+        quiz: state.quiz
     }
 }
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, {
+    createQuiz
+})
 export default class entryDeck extends PureComponent {
     static navigationOptions = ({ navigation }) => {
         const { name } = navigation.state.params
@@ -54,6 +59,8 @@ export default class entryDeck extends PureComponent {
                             <Button
                                 title={'Quiz'}
                                 color={'#f48042'}
+                                onPress={this.handleQuizStart}
+                                disabled={cards === 0}
                             />
                         </View>
                     </View>
@@ -67,6 +74,15 @@ export default class entryDeck extends PureComponent {
         const { id } = navigation.state.params
 
         navigation.navigate('AddCard', {deckId: id})
+    }
+
+    handleQuizStart = () => {
+        const { navigation, createQuiz, deck } = this.props
+        const deckId = navigation.state.params.id
+        const quizId = uuidv4()
+        createQuiz(quizId, deckId)
+            .then(() => navigation.navigate('Quiz', {deckId, quizId, deckTitle: deck.title}))
+
     }
 }
 

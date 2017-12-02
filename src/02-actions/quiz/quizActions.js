@@ -7,18 +7,15 @@ export const addQuizzesAction = quizzes => ({
     quizzes
 })
 
-export const createQuizAction = (quizId, deckId, date) => ({
+export const createQuizAction = quiz => ({
     type: types.CREATE_QUIZ,
-    quizId,
-    deckId,
-    date
+    quiz
 })
 
-export const addAnswerQuizAction = (quizId, answer, isCorrect) => ({
+export const addAnswerQuizAction = (quizId, answer) => ({
     type: types.ADD_ANSWER_QUIZ,
     quizId,
-    answer,
-    isCorrect
+    answer
 })
 
 export const addAnnotationQuizAction = (quizId, annotation) => ({
@@ -44,22 +41,32 @@ export const continueQuizAction = quizId => ({
 
 // Async Actions
 
-export const createQuiz = quiz => dispatch => {
-    persist.createQuiz(quiz)
+export const createQuiz = (quizId, deckId) => dispatch => {
+    const quiz = {
+        [quizId]: {
+            deckId,
+            answers: [],
+            date: Date.now(),
+            annotation: '',
+            isCancelled: false,
+            isFinished: false,
+            isContinued: null
+        }}
+    return persist.createQuiz(quiz)
         .then(data => dispatch(createQuizAction(quiz)))
 }
 
 export const finishQuiz = quiz => dispatch => {
     persist.mergeQuiz(quiz)
-        .then(data => dispatch(finishQuizAction(quiz)))
+        .then(data => dispatch(finishQuizAction(Object.keys(quiz)[0])))
 }
 
 export const cancelQuiz = quiz => dispatch => {
     persist.mergeQuiz(quiz)
-        .then(data => dispatch(cancelQuizAction(quiz)))
+        .then(data => dispatch(cancelQuizAction(Object.keys(quiz)[0])))
 }
 
 export const continueQuiz = quiz => dispatch => {
     persist.mergeQuiz(quiz)
-        .then(data => dispatch(continueQuizAction(quiz)))
+        .then(data => dispatch(continueQuizAction(Object.keys(quiz)[0])))
 }

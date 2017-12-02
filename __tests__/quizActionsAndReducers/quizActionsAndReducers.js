@@ -36,8 +36,6 @@ describe('Quiz Actions and reducers', () => {
                     [quizId]: {
                         deckId: quizzes[quizId].deckId,
                         answers: quizzes[quizId].answers,
-                        fails: quizzes[quizId].fails,
-                        success: quizzes[quizId].success,
                         date: quizzes[quizId].date,
                         isCancelled: quizzes[quizId].isCancelled,
                         isFinished: quizzes[quizId].isFinished,
@@ -59,11 +57,9 @@ describe('Quiz Actions and reducers', () => {
         // Actions
         const expectedAction = {
             type: types.CREATE_QUIZ,
-            deckId,
-            quizId,
-            date
+            quiz
         }
-        const action = actions.createQuizAction(deckId, quizId, date)
+        const action = actions.createQuizAction(quiz)
         expect(action).toEqual(expectedAction)
 
         // Reducers
@@ -75,24 +71,21 @@ describe('Quiz Actions and reducers', () => {
         const quiz = mockData.quizCreate
         const quizId = Object.keys(quiz)[0]
         const answer = false
-        const isCorrect = true
         // Actions
         const expectedAction = {
             type: types.ADD_ANSWER_QUIZ,
             quizId,
-            answer,
-            isCorrect
+            answer
         }
 
-        const action = actions.addAnswerQuizAction(quizId, answer, isCorrect)
+        const action = actions.addAnswerQuizAction(quizId, answer)
         expect(action).toEqual(expectedAction)
         // Reducers
         expect(quizReducer(quiz, action)).toEqual({
             ...quiz,
             [quizId]: {
                 ...quiz[quizId],
-                answers: quiz[quizId].answers.concat(answer),
-                success: 1
+                answers: quiz[quizId].answers.concat(answer)
             }
         })
     })

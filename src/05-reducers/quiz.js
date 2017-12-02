@@ -10,8 +10,6 @@ export default function quizReducer (state = {}, action) {
                     [quizId]: {
                         deckId: action.quizzes[quizId].deckId,
                         answers: action.quizzes[quizId].answers,
-                        fails: action.quizzes[quizId].fails,
-                        success: action.quizzes[quizId].success,
                         date: action.quizzes[quizId].date,
                         isCancelled: action.quizzes[quizId].isCancelled,
                         isFinished: action.quizzes[quizId].isFinished,
@@ -25,33 +23,28 @@ export default function quizReducer (state = {}, action) {
                 ...quizzes
             }
         case types.CREATE_QUIZ:
-            deckId = action.deckId
-            quizId = action.quizId
+            quizId = Object.keys(action.quiz)[0]
+            deckId = action.quiz[quizId].deckId
             return {
                 ...state,
                 [quizId]: {
                     deckId,
-                    answers: [],
-                    fails: 0,
-                    success: 0,
-                    date: action.date,
-                    annotation: '',
-                    isCancelled: false,
-                    isFinished: false,
-                    isContinued: null
+                    answers: action.quiz[quizId].answers,
+                    date: action.quiz[quizId].date,
+                    annotation: action.quiz[quizId].annotation,
+                    isCancelled: action.quiz[quizId].isCancelled,
+                    isFinished: action.quiz[quizId].isFinished,
+                    isContinued: action.quiz[quizId].isContinued
                 }
             }
         case types.ADD_ANSWER_QUIZ:
             quizId = action.quizId
             const answer = action.answer
-            const isCorrect = action.isCorrect
             return {
                 ...state,
                 [quizId]: {
                     ...state[quizId],
-                    answers: [].concat(state[quizId].answers, answer),
-                    fails: !isCorrect ? state[quizId].fails + 1 : state[quizId].fails,
-                    success: isCorrect ? state[quizId].success + 1 : state[quizId].success
+                    answers: [].concat(state[quizId].answers, answer)
                 }
             }
         case types.ADD_ANNOTATION_QUIZ:
