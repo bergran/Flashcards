@@ -15,9 +15,6 @@ export default function deckReducer (state = {}, action) {
         case types.ADD_DECK:
             deck = action.deck
             deckId = Object.keys(deck)[0]
-            const prueba = Object.assign({}, state, {[deckId]: Object.assign({
-                deleted: false
-            }, {title: action.deck[deckId].title})})
             return Object.assign({}, state, {[deckId]: Object.assign({}, {
                 deleted: false
             }, {title: action.deck[deckId].title})})
@@ -33,10 +30,7 @@ export default function deckReducer (state = {}, action) {
         case types.REMOVE_DECK:
             deck = action.deck
             deckId = Object.keys(deck)[0]
-            return Object.assign({}, state, {[deckId]: {
-                ...state[deckId],
-                deleted: true
-            }})
+            return Object.assign({}, state, {[deckId]: Object.assign({}, state[deckId], {deleted: true})})
         default:
             return state
     }

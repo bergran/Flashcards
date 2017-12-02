@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import {
     Button,
     StyleSheet,
@@ -8,6 +8,7 @@ import {
 import { connect } from 'react-redux'
 import { createQuiz } from "../../../02-actions/quiz/quizActions";
 import uuidv4 from 'uuid'
+import { removeDeck } from '../../../02-actions/deck/deckActions'
 
 const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps.navigation.state.params
@@ -20,14 +21,19 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 @connect(mapStateToProps, {
-    createQuiz
+    createQuiz,
+    removeDeck
 })
-export default class entryDeck extends PureComponent {
+export default class entryDeck extends Component {
     static navigationOptions = ({ navigation }) => {
         const { name } = navigation.state.params
         return {
             title: name
         }
+    }
+
+    shouldComponentUpdate (nextProps) {
+        return !nextProps.deck.deleted
     }
 
     render () {
@@ -43,25 +49,34 @@ export default class entryDeck extends PureComponent {
         } else {
             return (
                 <View style={styles.container}>
-                    <View>
+                    <View style={styles.titles}>
                         <Text style={styles.title}>{deck.title}</Text>
                         <Text style={styles.subtitle}>{`${cards} cards`}</Text>
                     </View>
-                    <View>
-                        <View>
-                            <Button
-                                title={'Add card'}
-                                color={'#2067d8'}
-                                onPress={this.handlePress}
-                            />
-                        </View>
-                        <View style={styles.quizButton}>
-                            <Button
-                                title={'Quiz'}
-                                color={'#f48042'}
-                                onPress={this.handleQuizStart}
-                                disabled={cards === 0}
-                            />
+                    <View style={styles.containerButtons}>
+                        <View style={styles.buttons}>
+                            <View>
+                                <Button
+                                    title={'Add card'}
+                                    color={'#2067d8'}
+                                    onPress={this.handlePress}
+                                />
+                            </View>
+                            <View>
+                                <Button
+                                    title={'Quiz'}
+                                    color={'#f48042'}
+                                    onPress={this.handleQuizStart}
+                                    disabled={cards === 0}
+                                />
+                            </View>
+                            <View>
+                                <Button
+                                    title={'Remove'}
+                                    color={'#ba1f1f'}
+                                    onPress={this.handleReset}
+                                />
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -84,6 +99,18 @@ export default class entryDeck extends PureComponent {
             .then(() => navigation.navigate('Quiz', {deckId, quizId, deckTitle: deck.title}))
 
     }
+
+    handleReset = () => {
+        const { deck:deckRaw, navigation, removeDeck } = this.props
+        const deckId = navigation.state.params.id
+        let deck = Object.assign({}, {
+            [deckId]: Object.assign({}, deckRaw, {
+                deleted: true
+            })
+        })
+        removeDeck(deck)
+        navigation.goBack()
+    }
 }
 
 const styles = StyleSheet.create({
@@ -94,6 +121,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center'
     },
+    titles: {
+        height: 100,
+        padding: 50
+    },
     title: {
         fontSize: 50,
         textAlign: 'center'
@@ -103,11 +134,12 @@ const styles = StyleSheet.create({
         color: 'rgba(0, 0, 0, 0.5)',
         textAlign: 'center'
     },
-    addCardButton: {
+    containerButtons: {
         width: 200,
+        height: 200,
     },
-    quizButton: {
-        width: 200,
-        marginTop: 20,
+    buttons: {
+        flex: 1,
+        justifyContent: 'space-around'
     }
 })
