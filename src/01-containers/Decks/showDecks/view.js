@@ -10,12 +10,12 @@ class ShowDecksView extends PureComponent {
             decks,
             cards,
         } = this.props
-        const deckList = Object.keys(decks).map(deckId => ({
+        const deckList = Object.keys(decks).filter(deck => !decks[deck].deleted).map(deckId => ({
             key: deckId,
             id: deckId,
             title: decks[deckId].title,
             cards: Object.keys(cards).filter(cardId => cards[cardId].deckId === deckId).length
-        })).filter(deck => !deck.deleted)
+        }))
         return (
             <View>
                 <FlatList
