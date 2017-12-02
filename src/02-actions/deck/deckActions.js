@@ -45,13 +45,14 @@ export const editDeck = deck => dispatch => {
         .then(data => dispatch(editDeckAction(deck)))
 }
 
-export const removeDeck = deck => dispatch => {
-    const deckId = Object.keys(deck)[0]
-    return persist.mergeDeck({
-        ...deck,
+export const removeDeck = deckRaw => dispatch => {
+    const deckId = Object.keys(deckRaw)[0]
+    const deck = {
         [deckId]: {
-            title: deck[deckId].title,
+            title: deckRaw[deckId].title,
             deleted: true
         }
-    })
+    }
+    return persist.mergeDeck(deck)
+        .then(data => dispatch(removeDeckAction(deck)))
 }
