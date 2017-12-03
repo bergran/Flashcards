@@ -72,6 +72,13 @@ export default class entryDeck extends Component {
                             </View>
                             <View>
                                 <Button
+                                    title={'Edit'}
+                                    color={'#f48042'}
+                                    onPress={this.handleEdit}
+                                />
+                            </View>
+                            <View>
+                                <Button
                                     title={'Remove'}
                                     color={'#ba1f1f'}
                                     onPress={this.handleReset}
@@ -110,6 +117,13 @@ export default class entryDeck extends Component {
         })
         removeDeck(deck)
         navigation.goBack()
+    }
+
+    handleEdit = () => {
+        const { deck, navigation } = this.props
+        const { deckId } = navigation.state.params
+
+        navigation.navigate('ShowCards', {deckId, deckTitle: deck.title})
     }
 }
 
