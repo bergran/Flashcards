@@ -45,7 +45,8 @@ export const editCard = card => dispatch => {
         .then(data => dispatch(editCardAction(card)))
 }
 
-export const removeCard = card => {
-    persist.mergeCard(Object.assign({}, card, {delete: true}))
-        .then(data => dispatch(removeCardAction(card)))
+export const removeCard = card => dispatch => {
+    const cardId = Object.keys(card)[0]
+    persist.mergeCard(card)
+        .then(data => dispatch(removeCardAction(cardId)))
 }
