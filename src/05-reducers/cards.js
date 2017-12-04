@@ -31,6 +31,8 @@ export default function cardReducer (state = card, action) {
                             ...state[cardIdR]
                         }
                     }
+                } else {
+                    return prevState
                 }
             }, {})
             return {

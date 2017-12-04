@@ -45,7 +45,6 @@ export default class ShowCards extends PureComponent {
     }
 
     handleDelete = cardId => {
-        console.log('entro')
         const { cards, removeCard } = this.props
         const card = cards.filter(cardRaw => cardRaw.cardId === cardId).map(cardRaw => {
             return {
