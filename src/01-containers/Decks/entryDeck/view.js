@@ -15,7 +15,8 @@ const mapStateToProps = (state, ownProps) => {
     const { card } = state
     return {
         deck: state.deck[id],
-        cards: Object.keys(card).filter(cardId => card[cardId].deckId === id).length,
+        cards: Object.keys(card).filter(cardId =>
+            !card[cardId].deleted && card[cardId].deckId === id).length,
         quiz: state.quiz
     }
 }
@@ -121,9 +122,8 @@ export default class entryDeck extends Component {
 
     handleEdit = () => {
         const { deck, navigation } = this.props
-        const { deckId } = navigation.state.params
-
-        navigation.navigate('ShowCards', {deckId, deckTitle: deck.title})
+        const { id } = navigation.state.params
+        navigation.navigate('ShowCards', {deckId: id, deckTitle: deck.title})
     }
 }
 
