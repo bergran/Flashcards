@@ -14,7 +14,8 @@ class ShowDecksView extends PureComponent {
             key: deckId,
             id: deckId,
             title: decks[deckId].title,
-            cards: Object.keys(cards).filter(cardId => cards[cardId].deckId === deckId).length
+            cards: Object.keys(cards).filter(cardId =>
+                !cards[cardId].deleted && cards[cardId].deckId === deckId).length
         }))
         return (
             <View>
