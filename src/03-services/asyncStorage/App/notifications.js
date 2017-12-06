@@ -11,6 +11,6 @@ import { NOTIFICATIONS } from "../../../../constants/App/constants";
 * */
 
 
-export const getNotification = () => AsyncStorage.getItem(NOTIFICATIONS)
+export const getNotification = () => AsyncStorage.getItem(NOTIFICATIONS).then(data => JSON.parse(data))
 
 export const setNotification = notification => AsyncStorage.setItem(NOTIFICATIONS, JSON.stringify(notification))
