@@ -2,6 +2,8 @@ React-Native app (Mobile platform) to create flashcards to play quiz,
 also have notifications to notice you if you forgot to play quiz per
 day.
 
+tested on Android platform
+
 ### Dependencies
 
 * React

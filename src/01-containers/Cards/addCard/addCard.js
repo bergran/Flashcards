@@ -89,7 +89,12 @@ export default class AddCard extends PureComponent {
     }
 
     handlePress = () => {
-        const { addCard, cardCleanFormAction, inputs, navigation } = this.props
+        const {
+            addCard,
+            cardCleanFormAction,
+            inputs,
+            navigation
+        } = this.props
         const { deckId } = navigation.state.params
 
         // add card
@@ -100,6 +105,9 @@ export default class AddCard extends PureComponent {
 
         // clean form
         cardCleanFormAction()
+
+        // go back
+        navigation.goBack()
     }
 
     handleChange = (name, value, isValid) => {
