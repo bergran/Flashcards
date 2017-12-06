@@ -5,10 +5,12 @@ import {
     Text,
     View
 } from 'react-native'
+import { Permissions, Notifications } from 'expo'
 import { connect } from 'react-redux'
-import { createQuiz } from "../../../02-actions/quiz/quizActions";
+import { createQuiz } from "../../../02-actions/quiz/quizActions"
 import uuidv4 from 'uuid'
 import { removeDeck } from '../../../02-actions/deck/deckActions'
+import { manageNotification } from "../../../../utils/tools";
 
 const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps.navigation.state.params
@@ -103,6 +105,13 @@ export default class entryDeck extends Component {
         const { navigation, createQuiz, deck } = this.props
         const deckId = navigation.state.params.id
         const quizId = uuidv4()
+
+        const date = new Date()
+        date.setDate(date.getDate() + 1)
+        date.setHours(17)
+        date.setMinutes(0)
+        date.setSeconds(0)
+        manageNotification('DeckSwif', 'Hey, Did you forget play a quiz? :(', date, true)
         createQuiz(quizId, deckId)
             .then(() => navigation.navigate('Quiz', {deckId, quizId, deckTitle: deck.title}))
 
