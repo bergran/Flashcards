@@ -7,6 +7,8 @@ import {
 } from '../../../02-actions/form/formActions'
 import { addDeck } from '../../../02-actions/deck/deckActions'
 import Input from '../../../00-components/input'
+import uuidv4 from 'uuid'
+import deck from "../../../05-reducers/initialStates/deck";
 
 const mapStateToProps = state => ({
     inputs: state.form.deck
@@ -61,14 +63,18 @@ export default class CreateDeck extends PureComponent {
 
     handleSubmit = () => {
         if (this.handleValidations()) {
+            const deckId = uuidv4()
             // create deck
-            this.props.addDeck(this.props.inputs.title.value)
+            this.props.addDeck(this.props.inputs.title.value, deckId)
+                .then(data => {
+                    // go list decks
+                    this.props.navigation.navigate('DeckEntry', {id: deckId})
+                })
 
             // clean form
             this.props.deckCleanFormAction()
 
-            // go list decks
-            this.props.navigation.navigate('Decks')
+
         }
     }
 }

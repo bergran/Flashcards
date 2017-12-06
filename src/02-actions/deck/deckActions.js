@@ -1,4 +1,3 @@
-import uuidv4 from 'uuid'
 import * as types from '../../../constants/deck/constants'
 import * as persist from '../../03-services/asyncStorage/decks'
 
@@ -26,9 +25,9 @@ export const removeDeckAction = deck => ({
 
 // Async Actions
 
-export const addDeck = (title) => dispatch => {
+export const addDeck = (title, id) => dispatch => {
     const deck = {
-        [uuidv4()]: {
+        [id]: {
             title,
             deleted: false
         }
