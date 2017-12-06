@@ -43,7 +43,9 @@ export default class QuizGame extends PureComponent {
                     <Text style={styles.title}>{`${answersDone}/${cards} cards`}</Text>
                 </View>
                 <View style={styles.info}>
-                    <Text style={styles.infoText}>{card[show]}</Text>
+                    <View style={{width: 250}}>
+                        <Text style={styles.infoText}>{card[show]}</Text>
+                    </View>
                     <TouchableOpacity
                         onPress={this.handleSwitch}
                     >
@@ -107,15 +109,14 @@ const styles = StyleSheet.create({
     },
     info: {
         height: 200,
+        width: 350,
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center'
     },
     infoText: {
-        fontSize: 40,
-        textAlign: 'center',
-        width: 200,
-        height: 60
+        fontSize: 25,
+        textAlign: 'right'
     },
     noShow: {
         fontSize: 20,

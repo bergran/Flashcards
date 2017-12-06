@@ -10,6 +10,7 @@ import {
 import QuizGame from '../game'
 import QuizResults from '../results'
 import uuidv4 from 'uuid'
+import { manageNotification } from "../../../../utils/tools";
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -109,10 +110,16 @@ export default class Quiz extends PureComponent {
         const quizId = uuidv4()
         const { navigation, createQuiz } = this.props
         const { deckId, deckTitle } = navigation.state.params
+
+        const date = new Date()
+        date.setDate(date.getDate() + 1)
+        date.setHours(17)
+        date.setMinutes(0)
+        date.setSeconds(0)
+        manageNotification('DeckSwif', 'Hey, Did you forget play a quiz? :(', date, true)
         createQuiz(quizId, deckId)
             .then(() => navigation.navigate('Quiz', {deckId, quizId, deckTitle}))
     }
-
 }
 
 const styles = StyleSheet.create({
