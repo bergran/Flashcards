@@ -1,5 +1,24 @@
 {
   "expo": {
-    "sdkVersion": "22.0.0"
+    "sdkVersion": "22.0.0",
+    "version": "0.1.0",
+    "name": "FlashCards",
+    "slug": "flashcards",
+    "privacy": "public",
+    "orientation": "portrait",
+    "primaryColor": "#2067d8",
+    "icon": "https://cdn.pixabay.com/photo/2016/08/13/23/41/flashcards-1591812_960_720.jpg",
+    "loading": {
+      "icon": "https://cdn.pixabay.com/photo/2016/08/13/23/41/flashcards-1591812_960_720.jpg"
+    },
+    "notification": {
+      "icon": "https://cdn.pixabay.com/photo/2016/08/13/23/41/flashcards-1591812_960_720.jpg"
+    },
+    "ios": {
+      "bundleIdentifier": "org.bergg.udacifitness.exp"
+    },
+    "android": {
+      "package": "org.bergg.udacifitness.exp"
+    }
   }
 }
