@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import Swipeout from 'react-native-swipeout'
 import { Button, Platform, StyleSheet, TouchableOpacity, Text, ScrollView, View } from 'react-native'
 
 export default class CardEntry extends PureComponent {
