@@ -23,6 +23,7 @@ export default class AddCard extends PureComponent {
             title: 'Add card'
         }
     }
+    
     render () {
         const { inputs } = this.props
 
